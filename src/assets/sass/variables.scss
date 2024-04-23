@@ -1,0 +1,204 @@
+$breakpoint-desktop: 1280px;
+$breakpoint-tablet: 768px;
+$breakpoint-mobile: 480px;
+$above-the-fold: 600px;
+
+$nav-height-desktop: 48px;
+$nav-height-mobile: 40px;
+$footer-height-desktop: 48px;
+$footer-height-mobile: 72px;
+
+$nav-mobile-breakpoint: 640px;
+$footer-mobile-breakpoint: 640px; //960px;
+
+$debug: true !default;
+$debug: false;
+$dbg-borders: $debug;
+
+$color-black: #2f2d2d;
+$color-gray-dark:#353535;
+$color-gray: #777777;
+$color-gray-light: #a3a3a3;
+$color-gray-lighter: #c3c3c3;
+$color-white: #e7f5f9; //#f2f2f2;//white;
+
+
+$color-blue: #3399FE;
+$color-blue-dark: darken($color-blue, 20%);
+$color-blue-ice-dark: #324964;
+
+$color-cogitate-blue: #34B3E9;
+$color-cogitate-red: #DD0F5A;
+//font-family: 'Nanum Gothic', sans-serif;
+
+:root {
+    --text-color: #{$color-black};
+    --background-color: #{$color-white};
+
+    --color-success: #4d9f2a;
+    --color-danger: #dd160f;
+    --color-warning: #ed9e2e;
+    --color-info: #4a9af7;
+
+    --button-background-color: #{$color-cogitate-blue};
+    --button-text-color: white;
+    --button-text-color-hot: yellow;
+
+    --button-background-color-alternate: #{$color-cogitate-red};
+    --button-background-color-secondary: #f15890;
+    --button-background-color-success: #4d9f2a;
+    --button-background-color-danger: #dd160f;
+    --button-background-color-warning: #ed9e2e;
+    --button-background-color-info: #4a9af7;
+
+    // navigation
+    --nav-bar-background-color: #add9ec;
+    --nav-link-background-color: color-mix(in srgb, var(--nav-bar-background-color), #fff 25%);
+    --nav-link-color: #{$color-black};
+    --nav-link-active-background-color: #{$color-cogitate-blue};
+    //--nav-border-color: #add9ec; // #9e9fb9;
+    --nav-bar-border-color: color-mix(in srgb, var(--nav-bar-background-color), #000 15%);
+    --nav-link-background-color-hover: darken(#add9ec, 10%);
+
+
+    --menu-background-color: white;
+    //--menu-border-color: hsl(from var(--menu-background-color) h s calc(l - 15%));
+    --menu-border-color: color-mix(in srgb, var(--menu-background-color), #000 15%);
+    --menu-text-color: $color-black;
+
+    // dialogs
+    --dialog-background-color: #{$color-white};
+    --dialog-title-color: #{$color-black};
+    --dialog-title-background-color: #add9ec;
+    --dialog-text-color: #{$color-black};
+    --dialog-text-color-hot: color-mix(in srgb, var(--dialog-text-color), #fff 15%);
+
+    //#8cc5de
+    --helpbox-background: #{rgba(#d0f3d8, 0.7)};
+    --helpbox-border: color-mix(in srgb, var(--helpbox-background), #000 15%);
+
+    --separator-color: #{$color-black};
+
+    --input-background-color: white; //#e5fcff; //#e2eaed; //#c0d0f5b0
+    --input-select-color: #698ee6b0;
+    --input-text-color: #{$color-black};
+    --input-placeholder-color: #7584a39c;
+    --input-border-color: #bdebf1;
+    --input-border-radius: 5px;
+    --input-text-disabled-color: #7584a39c;
+
+    --font-input-label: 'Nanum Gothic', 'sans-serif';
+    --font-input-label-size: 14px;
+    --font-input-help-text-size: 12px;
+    //--input-text-disabled-color
+}
+
+@mixin no-select(){
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+@mixin debug-borders($color: #868686, $size: 1) {
+    @if $dbg-borders {
+        border: #{$size}px dashed $color;
+    }
+}
+
+@mixin font-opensans($size: 0, $weight: 0) {
+    font-family: 'open_sansregular', sans-serif;
+    @if ($size != 0) { font-size: $size; }
+    @if ($weight != 0) { font-weight: $weight; }
+}
+
+@mixin sb-custom() {
+    &::-webkit-scrollbar {
+        width: 12px;
+        height: 12px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: lighten(#34B3E9, 15%);
+    }
+
+    &::-webkit-scrollbar-track {
+        background: #34B3E9; //#140A04;//#110903;
+    }
+    scrollbar-color: lighten(#34B3E9, 15%) #34B3E9; /* thumb and track color */
+    //scrollbar-width: thin;
+}
+
+@mixin sb-custom-thin() {
+    &::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: lighten(#211006, 15%);
+    }
+
+    &::-webkit-scrollbar-track {
+        background: #211006; //#140A04;//#110903;
+    }
+    scrollbar-color: lighten(#211006, 15%) #211006; /* thumb and track color */
+    scrollbar-width: thin;
+}
+
+@mixin bg-custom-gradient($color1, $color2, $color3) {
+    background: linear-gradient(45deg, rgba($color1, 0.7) 0%, rgba($color2, 0.7) 50%, rgba($color3, 0.7) 100%);
+}
+
+@mixin bg-button-gradient() {
+    background: linear-gradient(
+        45deg,
+        pxlightness(var(--button-background-color), 0.3) 0%,
+        pxlightness(var(--button-background-color), 0.7) 12%,
+        pxlightness(var(--button-background-color), 0.7) 87%,
+        pxlightness(var(--button-background-color), 0.3) 100%
+    );
+}
+
+@mixin bg-danger-gradient() {
+    background: linear-gradient(45deg, darken(red, 15%) 0%, red 50%, orange 100%);
+}
+
+@function pxlightness($color, $lightnessMultiplier, $alpha: 0) {
+    $color: str-replace($color, 'var(');
+    $color: str-replace($color, ')');
+    $color-h: var(#{$color + '-h'});
+    $color-s: var(#{$color + '-s'});
+    $color-l: var(#{$color + '-l'});
+
+    @if ($alpha != 0) {
+        @return hsla($color-h, $color-s, calc(#{$color-l} * #{$lightnessMultiplier}), $alpha);
+    } @else {
+        @return hsl($color-h, $color-s, calc(#{$color-l} * #{$lightnessMultiplier}));
+    }
+}
+
+@function pxsaturation($color, $saturationMultiplier, $alpha: 0) {
+    $color: str-replace($color, 'var(');
+    $color: str-replace($color, ')');
+    $color-h: var(#{$color + '-h'});
+    $color-s: var(#{$color + '-s'});
+    $color-l: var(#{$color + '-l'});
+    @if ($alpha != 0) {
+        @return hsla($color-h, calc(#{$color-s} * #{$saturationMultiplier}), $color-l, $alpha);
+    } @else {
+        @return hsl($color-h, calc(#{$color-s} * #{$saturationMultiplier}), $color-l);
+    }
+}
+
+@function pxalpha($color, $alpha) {
+    $color-h: var(#{$color + '-h'});
+    $color-s: var(#{$color + '-s'});
+    $color-l: var(#{$color + '-l'});
+
+    @return hsla($color-h, $color-s, $color-l, $alpha);
+    //$tmp: $color + '-hsl';
+    //@return unquote('hsla(var(#{$tmp}), #{$alpha})');
+}

@@ -1,0 +1,66 @@
+<template>
+    <div class="global-menu-container" :class="{ visible: this.$store.ui.menuOpen }" @click.self="menuClick(1)">
+        <div class="menu">
+            <!-- <div class="separator"></div> -->
+            <div class="item" @click.prevent="menuClick(1)">
+                <router-link :to="{ name: 'home' }">
+                    <div>
+                        <span>Home</span>
+                        <span></span>
+                    </div>
+                </router-link>
+            </div>
+
+            <div class="separator"></div>
+
+            <div class="item" @click.prevent="menuClick(1)">
+                <router-link :to="{ name: 'about' }">
+                    <div>
+                        <span>About</span>
+                        <span></span>
+                    </div>
+                </router-link>
+            </div>
+
+            <div class="separator"></div>
+            <div>
+                <template v-if="$store.server.version != ''">V. {{ $store.server.version }}</template>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+export default {
+    name: 'AppMenu',
+    props: {},
+    data() {
+        return {};
+    },
+    methods: {
+        menuClick(arg) {
+            console.log('menu click', arg);
+            switch (arg) {
+                case 0:
+                    this.$store.setMenu();
+                    break;
+                case 1:
+                    this.$store.setMenu(false);
+                    break;
+                default:
+                this.$store.setMenu(false);
+
+            }
+        }
+    },
+    created() {},
+    destroyed() {},
+    mounted() {
+    },
+    computed: {
+        userLoggedIn() {
+            return this.$store.user.loggedIn;
+        }
+    }
+};
+</script>

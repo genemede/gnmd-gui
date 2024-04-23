@@ -1,0 +1,145 @@
+@import "variables";
+@import "fonts";
+
+@import 'datatables.net-dt';
+@import 'datatables.net-buttons-dt';
+@import 'datatables.net-responsive-dt';
+@import 'datatables.net-select-dt';
+
+@import "ui";
+@import "grids";
+@import "buttons";
+@import "forms";
+@import "menus";
+@import 'dialogs';
+@import "dt";
+@import "indev";
+
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-overflow-scrolling: touch;
+}
+
+html {
+    color: var(--text-color);
+    background-color: var(--background-color);
+    font-family: var(--font-primary);
+    font-size: 16px;
+    background-size: auto auto;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+}
+
+body {
+    //min-height: 100vh;
+    transition: color 0.5s, background-color 0.5s;
+    line-height: 1.6;
+    //font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    font-size: 15px;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+
+#app {
+    font-weight: normal;
+    .appbg {
+
+    }
+    &.showfocus {
+      .button:focus {
+        outline-style: auto;
+        //border: 2px solid red !important;
+        //outline: 1px;
+      }
+    }
+}
+
+span {
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+.btn {
+    padding: 8px 12px;
+    background-color: #03141f;
+    border: 1px solid #093853;
+    border-radius: 3px;
+    &.disabled {
+        opacity: 0.1;
+    }
+}
+
+.wrapper {
+    //border: 1px dotted gray;
+    text-align: left;
+    padding: 1rem;
+    &.sa {
+        margin-bottom: 1rem;
+    }
+    &.wireframe {
+        border: 1px dashed gray;
+        text-align: center;
+    }
+}
+
+.mtdemo {
+    padding: 4px 12px;
+    background-color: #093853;
+    border-radius: 3px;
+    border: 1px solid #0d6474;
+    margin-right: 16px;
+    cursor: pointer;
+    &.guid {
+        display: inline-block;
+        margin-bottom: 4px;
+        font-size: 12px;
+    }
+}
+
+.lg {
+    width: 64px;
+    height: 64px;
+    //position: absolute;
+    top: 28px
+}
+.vue-notification-group {
+    height: 1px;
+}
+.stdnotifications {
+    padding: 10px !important;
+    //margin: 5px 5px 5px;
+    margin: 5px;
+    font-size: 14px;
+
+    color: #ffffff;
+    background: #44a4fc;
+    border-left: 5px solid #187fe7;
+
+    &.warn {
+        background-color: var(--color-warning);
+        border-left-color: color-mix(in srgb, var(--color-warning), #000 15%);
+    }
+
+    &.error {
+        background-color: var(--color-danger);
+        border-left-color: color-mix(in srgb, var(--color-danger), #000 15%);
+    }
+
+    &.success {
+        background-color: var(--color-success);
+        border-left-color: color-mix(in srgb, var(--color-success), #000 15%);
+    }
+    &.info {
+        background-color: var(--color-info);
+        border-left-color: color-mix(in srgb, var(--color-info), #000 15%);
+    }
+}
