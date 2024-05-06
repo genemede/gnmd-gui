@@ -40,7 +40,8 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Build
-        run: npm run build --mode ghpages
+        #run: npm run build --mode ghpages
+        run: vite build --mode ghpages
       - name: Setup Pages
         uses: actions/configure-pages@v4
       - name: Upload artifact
