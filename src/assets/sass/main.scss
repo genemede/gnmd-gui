@@ -48,6 +48,9 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
+.small {
+    font-size: 12px;
+}
 
 #app {
     font-weight: normal;
@@ -113,7 +116,9 @@ span {
 }
 .vue-notification-group {
     height: 1px;
+    margin: 24px 16px 0;
 }
+
 .stdnotifications {
     padding: 10px !important;
     //margin: 5px 5px 5px;

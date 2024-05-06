@@ -24,8 +24,9 @@
 
             <div class="separator"></div>
             <div>
-                <template v-if="$store.server.version != ''">V. {{ $store.server.version }}</template>
+                <span v-if="$store.server.version != ''">V. {{ $store.server.version }}</span>
             </div>
+            <div><span class="small">{{appenv}}</span></div>
         </div>
     </div>
 </template>
@@ -58,6 +59,9 @@ export default {
     mounted() {
     },
     computed: {
+        appenv() {
+            return import.meta.env.VITE_APP_ENV;
+        },
         userLoggedIn() {
             return this.$store.user.loggedIn;
         }
