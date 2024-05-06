@@ -5,4 +5,53 @@
             border: 1px solid var(--input-border-color);
         }
     }
+    .dataTables_paginate {
+        .paginate_button {
+            border: 1px solid var(--button-background-color);
+            background-color: var(--button-background-color);
+            color: var(--button-text-color) !important;
+            border-radius: 0px;
+
+            display: inline-block;
+            //font-weight: bold;
+            text-align: center;
+
+            transition: opacity 0.35s, background-color 0.70s, color 0.15s;
+            opacity: 1;
+            cursor: pointer;
+            text-decoration: none;
+            position: relative;
+
+            font-size: 13px;
+		    padding: 3px 8px;
+		    //min-width: auto;
+            &:hover {
+                opacity: 0.8;
+                background-color: var(--button-background-color) !important;
+            }
+        }
+    }
+}
+
+
+table.dataTable {
+    thead {
+        background-color: var(--group-background-color);
+    }
+    tbody {
+        th, td {
+            padding: 4px 4px !important;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 300px;
+            &.mt-icon {
+                i {
+                    width: 1.2rem
+                }
+            }
+        }
+    }
+
+
 }

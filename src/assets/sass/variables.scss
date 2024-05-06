@@ -66,6 +66,9 @@ $color-cogitate-red: #DD0F5A;
     --menu-border-color: color-mix(in srgb, var(--menu-background-color), #000 15%);
     --menu-text-color: $color-black;
 
+    // groups, titles and separators
+    --group-background-color: var(--nav-bar-background-color);
+
     // dialogs
     --dialog-background-color: #{$color-white};
     --dialog-title-color: #{$color-black};
@@ -76,6 +79,14 @@ $color-cogitate-red: #DD0F5A;
     //#8cc5de
     --helpbox-background: #{rgba(#d0f3d8, 0.7)};
     --helpbox-border: color-mix(in srgb, var(--helpbox-background), #000 15%);
+
+    --sidebar-background-color: var(--nav-link-active-background-color);
+    --sidebar-text-color: var(--text-color);
+    //--sidebar-background-color: #1279a5;
+    //--sidebar-text-color: white;
+
+    --toolbar-background-color: #1279a5;
+    --toolbar-text-color: var(--background-color);
 
     --separator-color: #{$color-black};
 
@@ -91,6 +102,8 @@ $color-cogitate-red: #DD0F5A;
     --font-input-label-size: 14px;
     --font-input-help-text-size: 12px;
     //--input-text-disabled-color
+
+    --sidebar-width: 300px;
 }
 
 @mixin no-select(){

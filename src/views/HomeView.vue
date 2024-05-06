@@ -23,6 +23,9 @@
             <span>{{ text1 }}</span><br>
         </div>
         <div class="wrapper">
+            <DataGrid>qwe</DataGrid>
+        </div>
+        <div class="wrapper">
             <div class="input-wrapper">
                 <label class="label">Label</label>
                 <div class="control full">

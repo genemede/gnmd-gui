@@ -35,8 +35,8 @@ $overlap-nav-bar: false;
     overflow: hidden;
 
     display: grid;
-    grid-template-columns: 300px auto;
-    grid-gap: 20px;
+    grid-template-columns: var(--sidebar-width) auto;
+    //grid-gap: 20px;
 
     &.menu-is-open {
         filter: saturate(10%) blur(2px);
@@ -51,7 +51,9 @@ $overlap-nav-bar: false;
 
 .sidebar-container {
     margin-top: $nav-height-desktop;
-    background-color: var(--nav-link-active-background-color);
+    background-color: var(--sidebar-background-color);
+    color: var(--sidebar-text-color);
+    float: left;
 
     .sidebar {
         padding: 32px 16px;
@@ -62,7 +64,7 @@ $overlap-nav-bar: false;
 .main-container {
     //@include sb-custom();
     height: 100%;
-    //position: relative;
+    position: relative;
     z-index: 1;
     @if $overlap-nav-bar {
         padding-top: $nav-height-desktop;
@@ -470,4 +472,16 @@ $overlap-nav-bar: false;
 .sbitem {
     padding: 4px 4px;
     cursor: pointer;
+}
+
+.data-toolbar {
+    background-color: var(--toolbar-background-color);
+    color: var(--toolbar-text-color);
+    position: sticky;
+    //top: 0;
+    height: 42px;
+    padding: 6px;
+    text-align: right;
+    bottom: 0;
+    z-index: 10;
 }

@@ -358,6 +358,7 @@ textarea {
             &::placeholder {
                 color: var(--input-placeholder-color);
                 opacity: 0.8;
+                font-style: italic;
                 //text-transform: uppercase;
             }
             &:focus {

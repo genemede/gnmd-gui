@@ -1,10 +1,8 @@
 import axios from 'axios';
-//import store from '../store';
 
 const genemedeAPI = {
     apiURL() {
-        //return store.state.apiURL;
-        return 'http://127.0.0.1:5342/v0/'
+        return import.meta.env.VITE_APP_APIURL
     },
     apiGet(cmd) {
         return new Promise((resolve, reject) => {

@@ -1,6 +1,5 @@
 <template>
     <NavigationBar v-if="true"></NavigationBar>
-
     <transition name="dlg-zoom" mode="in-out">
         <div
             class="global-dialog-container visible"
@@ -40,7 +39,7 @@
             <AppSidebar />
         </div>
         <div class="main-container" ref="maincontainer" id="mc">
-            <RouterView v-slot="{ Component }">
+                <RouterView v-slot="{ Component }">
                 <keep-alive include="ManageMTypes,SearchPage,ExplorePage,HomeView">
                     <component :is="Component" :key="$route.path"/>
                 </keep-alive>
@@ -173,6 +172,21 @@ export default {
             genemedeAPI.apiGet("mtypes").then((res) => {
                 mtypes.setData(res.data.data)
                 this.prepSidebar();
+                this.$notify({
+                    type: "success",
+                    group: "std",
+                    title: "Connected",
+                    text: "Connected to local GAT server."
+                });
+            });
+        })
+        .catch(err => {
+            this.$store.setConfig(null);
+            this.$notify({
+                type: "error",
+                group: "std",
+                title: "Error",
+                text: "Local GAT server is not responding.",
             });
         });
 

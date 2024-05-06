@@ -17,6 +17,8 @@ import HelpBox from './UI/HelpBox.vue'
 import ConfirmDialog from '@/components/dlg/ConfirmDialog.vue'
 import InformDialog from '@/components/dlg/InformDialog.vue'
 
+import DataGrid from '@/components/DataGrid.vue'
+
 import helpers from './services/helpers';
 import storage from './services/storage';
 import dialogs from './services/dialogs';
@@ -30,15 +32,19 @@ app.component('RelField', RelField);
 app.component('TextField', TextField);
 app.component('GToggle', GToggle);
 app.component('HelpBox', HelpBox);
+
 // dialogs
 app.component('ConfirmDialog', ConfirmDialog);
 app.component('InformDialog', InformDialog);
+
+// misc
+app.component('DataGrid', DataGrid);
 
 app.use(pinia);
 app.use(router);
 app.use(Notifications);
 
-
+app.config.globalProperties.$base_url = import.meta.env.BASE_URL
 app.config.globalProperties.$store = useGlobalStore();
 app.config.globalProperties.$helpers = helpers;
 app.config.globalProperties.$storage = storage;

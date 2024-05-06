@@ -23,6 +23,9 @@
         </div>
         <!-- <div class="editactionbar">action bar</div> -->
     </div>
+    <div class="data-toolbar">
+        <GButton disabled class="" action="save" @click.stop="btnClick">Save</GButton>
+    </div>
 </template>
 
 <script>
@@ -35,11 +38,14 @@ var tgf = null, controller = null;
 
 var slug = null, mtype = null
 
+window.onscroll = function() {myFunction()};
+
 export default {
     setup() {
         const route = useRoute()
         slug = route.params.slug
         mtype = route.params.mtype
+        console.log('============== slug', slug)
     },
     props: {
         mode: String //{ type: String, default: 0}
@@ -101,9 +107,16 @@ export default {
         },
         onTagifyInput(evt) {
         },
+        async btnClick(evt, btn) {
+            switch (btn.action) {
+                case 'save':
+                    break;
+            }
+        }
     },
     mounted() {
         debug_log('data item edit mode', this.mode);
+
         /*
         var r = this.$route.path;
         if (r) {

@@ -5,11 +5,11 @@ export const useGlobalStore = defineStore('globalstore', {
         user: {
             loggedIn: true,
             displayName: "",
-            avatarURL: '/images/user.svg',
+            avatarURL: import.meta.env.BASE_URL + 'images/user.svg',
             isAdmin: false
         },
         server: {
-            online: 0,
+            status: 0, // 0 - unknown; 1 - offline; 2 - online
             version: ""
         },
         ui: {
@@ -17,6 +17,7 @@ export const useGlobalStore = defineStore('globalstore', {
             dialogShowing: false,
             isDlgWorking: false
         },
+        devMode: import.meta.env.VITE_APP_ENV == "development",
         count: 0
     }),
     getters: {
@@ -37,12 +38,12 @@ export const useGlobalStore = defineStore('globalstore', {
             if (data) {
                 this.user.displayName = data.user.screen_name;
                 this.server.version = data.version_string;
-                this.server.online = 1;
+                this.server.status = 2;
             }
             else {
                 this.user.displayName = "";
                 this.server.version = "";
-                this.server.online = 0;
+                this.server.status = 1;
             }
         }
     }

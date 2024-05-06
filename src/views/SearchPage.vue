@@ -133,7 +133,7 @@ export default {
         },
         async execSearch() {
             genemedeAPI.apiGet("search?q=" + this.filterTmp).then((res) => {
-                //debug_log('result', res.data.data)
+                debug_log('result', res.data)
                 this.data = res.data.data
             });
 

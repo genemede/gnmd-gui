@@ -168,7 +168,7 @@ export default {
         async btnClick(evt, btn) {
             //var act = evt.srcElement.attributes.action.nodeValue;
             //console.log('click', evt, btn, btn.action);
-            //debug_log('ENV', import.meta.env.VITE_APP_ENV, import.meta.env.VITE_APP_TITLE)
+            debug_log('ENV', import.meta.env.VITE_APP_ENV, import.meta.env.VITE_APP_TITLE)
             this.$dlg.test()
 
             switch (btn.action) {

@@ -16,7 +16,7 @@
                 <!-- <RouterLink class="navlink" :to="{ name: 'mtypes' }">MTypes</RouterLink> -->
                 <RouterLink class="navlink" :to="{name: 'search'}">Search</RouterLink>
                 <RouterLink class="navlink" :to="{name: 'explore'}">Explore</RouterLink>
-                <RouterLink class="navlink devlink" :to="{name: 'devpage'}">Dev</RouterLink>
+                <RouterLink v-if="this.$store.devMode" class="navlink devlink" :to="{name: 'devpage'}">Dev</RouterLink>
             </div>
 
             <div class="user">
@@ -29,10 +29,10 @@
                             <img class="avatar-img" :src="this.$store.user.avatarURL">
                         </div>
                         <span class="admin-logo" v-if="this.$store.user.isAdmin"><i class="fas fa-crown"></i></span>
-                        <span class="server-icon online" v-if='this.$store.server.online === 1'>
+                        <span class="server-icon online" v-if='this.$store.server.status === 2'>
                             <i class="fas fa-check"></i>
                         </span>
-                        <span class="server-icon" v-if='this.$store.server.online === 0'>
+                        <span class="server-icon" v-if='this.$store.server.status === 1'>
                             <i class="fas fa-ban"></i>
                         </span>
                         <span class="notifications" :class="{visible: dbgNot}">3</span>
@@ -58,7 +58,7 @@ export default {
             thSwitchHI: false,
             thSwitchEls: false,
             headerImg: '',
-            dbgNot: false
+            dbgNot: false,
         };
     },
     methods: {
@@ -98,7 +98,6 @@ export default {
     destroyed() {
     },
     mounted() {
-        //this.init();
     },
     props: {},
     components: { RouterLink }
