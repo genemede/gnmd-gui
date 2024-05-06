@@ -1,5 +1,7 @@
 # Deploy app to gh-pages
 name: Deploy
+env:
+    VITE_APP_ENV: ghpages
 
 # Controls when the workflow will run
 on:
@@ -39,8 +41,6 @@ jobs:
           cache: 'npm'
       - name: Install dependencies
         run: npm ci
-        env:
-            VITE_APP_ENV: ghpages
       - name: Build
         run: npm run build
       - name: Setup Pages
