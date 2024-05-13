@@ -12,7 +12,7 @@ export default defineConfig(async({ command, mode }) => {
     // to bypass problem with gh workflow and npm/vite failing to correctly select ghpages env
     // we manually override it here
     if (appenv == "ghpages") {
-        baseurl ="gnmd-gui"
+        baseurl ="/gnmd-gui/"
     }
 
     console.log(`Building ENV: ${appenv} with base URL: ${baseurl}`)

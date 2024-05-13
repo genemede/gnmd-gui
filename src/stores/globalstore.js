@@ -5,6 +5,7 @@ export const useGlobalStore = defineStore('globalstore', {
         user: {
             loggedIn: true,
             displayName: "",
+            workspace: "default",
             avatarURL: import.meta.env.BASE_URL + 'images/user.svg',
             isAdmin: false
         },
@@ -37,11 +38,13 @@ export const useGlobalStore = defineStore('globalstore', {
         setConfig(data) {
             if (data) {
                 this.user.displayName = data.user.screen_name;
+                this.user.workspace = data.user.workspace;
                 this.server.version = data.version_string;
                 this.server.status = 2;
             }
             else {
                 this.user.displayName = "";
+                this.user.workspace = "";
                 this.server.version = "";
                 this.server.status = 1;
             }

@@ -3,13 +3,36 @@
         <div class="wrapper">
             <h2>Dev Page</h2>
             <span>For ongoing UI development. Won't be active on release.</span>
+        </div>
+        <div class="wrapper" v-if="false">
+
+            <multiselect v-model="selvalue_a" :options="seloptions" track-by="code" label="value"></multiselect>
+            <div>{{ selvalue_a }}</div>
+            <hr>
+
+            <SelectField title="Select from options" v-model="selvalue_b" :options="seloptions"></SelectField>
+            <div>{{ selvalue_b }}</div>
+            <hr>
+        </div>
+        <div class="wrapper">
+            <SelectField title="Select from source" v-model="selvalue_c" source="iso639-1" help="List of languages"></SelectField>
+            <div>this value: {{ selvalue_c }}</div>
+            <hr>
+            <VueDatePicker v-model="datepick_a"></VueDatePicker>
+            <div>this value: {{ datepick_a }}</div>
+
+            <hr>
+            <DateField v-model="datepick_b" />
+            <div>this value: {{ datepick_b }}</div>
+        </div>
+        <div class="wrapper">
             <GButton class="" action="dlgconfirm" @click.stop="btnClick">dlgconfirm</GButton>
             <GButton class="" action="dlgalert" @click.stop="btnClick">dlgalert</GButton>
         </div>
 
         <div class="wrapper">
             <h2>Dev Page</h2>
-            <span>For ongoing UI development. Won't be active on release.</span>
+            <span>For ongoing UI development. Won't be active on release.</span>7
             <GButton class="" action="post" @click.stop="btnClick">post</GButton>
             <GButton class="" action="put" @click.stop="btnClick">put</GButton>
 
@@ -112,9 +135,10 @@ const testguid = '4c94570b-0a71-47cb-af55-bf70dd1206cf'
 import Tagify from '@yaireo/tagify';
 import GForm from '@/components/GForm.vue'
 import { useGlobalStore } from '@/stores/globalstore'
-
-
-
+import Multiselect from 'vue-multiselect'
+import { ref } from 'vue';
+import VueDatePicker from '@vuepic/vue-datepicker';
+import '@vuepic/vue-datepicker/dist/main.css'
 
 
 const minTagLengthLookup = 3;
@@ -129,6 +153,8 @@ export default {
     },
     data () {
         return {
+            datepick_a: null,
+            datepick_b: null,
             version: '',
             mtypelist: [],
             mtypes: null,
@@ -156,11 +182,29 @@ export default {
                 {on: false, title: 'Second option', type: 'two'}
             ],
 
+            selvalue_a: null,
+            selvalue_b: null,
+            selvalue_c: "pt|Portuguese",
+            seloptions: [
+                {"code": "principal_investigator", "value": "Principal Investigator"},
+                {"code": "aaa", "value": "AAAAAAAAAAAAAAAA"},
+                {"code": "bbb", "value": "BBBBBBBBBBBBBBB"},
+                {"code": "ccc", "value": "CCCCCCCCCCCCCCCCC"},
+                {"code": "ddd", "value": "DDDDDDDDDDDDDDDDDDDDDDDD"},
+            ]
+
         }
     },
-    components: {GForm},
-    mounted() {
+    components: {
+        GForm,
+        Multiselect,
+        VueDatePicker
+    },
+    async mounted() {
         console.log('mounted')
+        var src = await this.$mtypes.getSource('lab.position');
+        debug_log("3", src.data)
+
         //genemedeAPI.apiGet("version").then((res) => { this.version = res.data; });
         //this.initTagify(this.tag_names);
     },
@@ -364,3 +408,4 @@ export default {
 }
 
 </script>
+

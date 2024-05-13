@@ -21,8 +21,9 @@
 
             <div class="user">
                 <div class="user-info" v-if="this.$store.user.loggedIn">
-                    <div class="username">
-                        <div class="name">{{this.$store.user.displayName}}</div>
+                    <div class="names">
+                        <div class="workspace">{{this.$store.user.workspace}}</div>
+                        <div class="username">{{this.$store.user.displayName}}</div>
                     </div>
                     <div class="user-avatar">
                         <div class="avatar-frame">

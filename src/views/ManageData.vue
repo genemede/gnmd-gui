@@ -43,7 +43,7 @@ export default {
     mounted() {
         if (this.mtype) {
             genemedeAPI.apiGet("data/" + this.mtype).then((res) => {
-                debug_log('result', res.data)
+                //debug_log('result', res.data)
                 this.navdata = res.data.data
             });
         }

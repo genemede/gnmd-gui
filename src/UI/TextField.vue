@@ -3,7 +3,7 @@ defineEmits(['update:modelValue', 'blur', 'click'])
 </script>
 
 <template>
-    <div class="input-wrapper">
+    <div class="input-wrapper padded">
         <label class="label" v-html="title" :class="labelClass" />
         <div class="control full" :class="ctrlClass">
             <span class="icon is-small is-left" v-if="lefticon">

@@ -13,8 +13,8 @@
 @import "menus";
 @import 'dialogs';
 @import "dt";
+@import "multiselect";
 @import "indev";
-
 
 * {
     box-sizing: border-box;
@@ -50,6 +50,10 @@ body {
 
 .small {
     font-size: 12px;
+}
+
+.nowrap {
+    white-space: nowrap;
 }
 
 #app {

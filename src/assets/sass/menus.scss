@@ -112,21 +112,25 @@ $menu-width-mobile: 280px;
             display: flex;
             justify-content: flex-end;
             .user-info {
-                padding: 8px 0px;
+                //padding: 8px 0px;
                 display: flex;
                 justify-content: flex-end;
             }
-            .username {
+            .names {
+                margin-top: 8px;
                 color: var(--nav-link-color);
                 white-space: nowrap;
-                padding: 12px 8px 0;
                 font-size: 12px;
-                .name {
-                    text-align: right;
-                }
+                text-align: right;
+                margin-right: 12px;
                 width: 100%;
-                max-width: 110px;
+                max-width: 150px;
                 overflow: hidden;
+                line-height: 1.4;
+                .workspace {
+                    text-transform: uppercase;
+                    font-weight: bold;
+                }
             }
             .login-register {
                 padding-top: 16px;

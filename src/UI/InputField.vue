@@ -3,9 +3,9 @@ defineEmits(['update:modelValue', 'blur', 'click'])
 </script>
 
 <template>
-    <div class="input-wrapper" :class="{invalid: isInvalid, currency: type =='currency'}">
+    <div class="input-wrapper padded flex" :class="{invalid: isInvalid, currency: type =='currency'}">
         <label class="label" v-html="title" :class="labelClass" v-if='title' />
-        <div class="control full" :class="ctrlClass">
+        <div class="control" :class="ctrlClass">
             <span class='cooldown active' v-if='cooldownTimeout != null'><div /></span>
             <span class="icon is-small is-left" v-if="lefticon">
                 <i :class="lefticon"></i>

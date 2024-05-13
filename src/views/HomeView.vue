@@ -17,27 +17,6 @@
                 <GButton class="" action="newsubject" @click.stop="btnClick">Add Subject</GButton>
             </p>
         </div>
-        <div class="wrapper">
-            <span>{{ tags1 }}</span><br>
-            <span>{{ tags2 }}</span><br>
-            <span>{{ text1 }}</span><br>
-        </div>
-        <div class="wrapper">
-            <DataGrid>qwe</DataGrid>
-        </div>
-        <div class="wrapper">
-            <div class="input-wrapper">
-                <label class="label">Label</label>
-                <div class="control full">
-                    <input name='basic' xvalue="tags1">
-                </div>
-                <div style='flex-basis: 100%; height: 0'></div>
-            </div>
-
-            <InputField v-model="text1" class='xinline' title="Text field" type="text" />
-            <!-- <GTags v-model="tags2" /> -->
-        </div>
-
         <div class="wrapper" v-if="false">
             <div class="std-grid">
                 <div class="grid-cell">

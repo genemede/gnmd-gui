@@ -20,7 +20,6 @@ textarea {
     }
 }
 
-
 .input-wrapper {
     position: relative;
     width: 100%;
@@ -28,13 +27,12 @@ textarea {
     margin-top: 8px;
 
     &:not(:first-child) {
-        //margin-top: 0;
+        margin-top: 4px;
     }
     > .v-select {
         min-width: 120px;
     }
     > .label {
-        //margin-left: 4px;
         margin-bottom: 3px;
         display: block;
         font-family: var(--font-input-label);
@@ -45,9 +43,6 @@ textarea {
                 color: var(--color-warning);
                 content: '*';
             }
-        }
-        &.opensans {
-            @include font-primary();
         }
         &.left {
             margin-left: 0;
@@ -86,7 +81,7 @@ textarea {
     }
 
     &.flex {
-        display: flex;
+        .control { display: flex; }
     }
     &.half {
         //display: inline-block;
@@ -252,9 +247,18 @@ textarea {
         color: var(--color-error);
         text-align: right;
     }
+    &.padded .control {
+        padding: 4px 6px;
+    }
     .control {
         position: relative;
         width: 100%;
+        height: 100%;
+        margin: 0;
+        background-color: var(--input-background-color);
+        border-radius: var(--input-border-radius);
+        //display: flex;
+        border: 1px solid var(--input-border-color);
         &.full-blocks {
             padding: 4px 8px 4px;
             background-color: var(--input-background-color);
@@ -262,11 +266,6 @@ textarea {
             border: 1px solid var(--input-border-color);
         }
         &.full {
-            padding: 4px 8px 4px;
-            background-color: var(--input-background-color);
-            border-radius: var(--input-border-radius);
-            display: flex;
-            border: 1px solid var(--input-border-color);
         }
         &.select-field {
             padding: 4px 4px;
@@ -343,17 +342,20 @@ textarea {
         }
         > input,
         textarea,
+        .rfcontent,
         select {
-            //margin: 4px 8px 4px;
+            //background-color: transparent;
+            border: none;
+            color: var(--input-text-color);
+            //border:1px solid red;
+
+            width: 100%;
+            line-height: 1.4;
+            //margin: 4px 6px;
             font-weight: 400;
             &::selection {
                 background: var(--input-select-color);
             }
-            background-color: transparent;
-            color: var(--input-text-color);
-            border: none;
-            width: 100%;
-            text-transform: none;
 
             &::placeholder {
                 color: var(--input-placeholder-color);
@@ -529,6 +531,7 @@ textarea {
     }
 }
 
+//=========================================================
 .relfield {
     .relitem {
         &:not(:last-child) {
@@ -555,6 +558,60 @@ textarea {
         button {
             float: right;
             //margin-top: 3px;
+        }
+    }
+}
+
+.input-wrapper {
+    &.relfield {
+        > .control {
+            //background-color: transparent;
+            background-color: var(--input-background-color);
+            //flex-direction: column;
+        }
+    }
+}
+
+.rfitem {
+    border-radius: var(--input-border-radius);
+    border: 1px solid var(--input-border-color);
+    //min-height: 80px;
+    margin-bottom: 4px;
+    .riheader {
+        display: flex;
+        //flex-direction: row;
+        align-items: baseline;
+        padding: 4px;
+        background-color: var(--group-background-color);
+        span {padding: 0}
+        .rhmt {
+            color: var(--text-color-soft);
+            font-size: 10px;
+            text-transform: uppercase;
+            margin-left: 8px;
+        }
+        .rhlabel {
+
+        }
+        .rhactions {
+            //float: right;
+            margin-left: auto;
+        }
+    }
+    .ridata {
+        min-height: 25px;
+        //border: 3px dashed blue;
+        display: flex;
+
+        .rdleft {
+            text-align: right;
+            padding: 4px 8px;
+            //border: 1px dashed red;
+        }
+        .rdright {
+            width: 100%;
+            padding: 4px 8px;
+            //border: 1px dashed green;
         }
     }
 }

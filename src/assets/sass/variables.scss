@@ -33,6 +33,7 @@ $color-cogitate-red: #DD0F5A;
 
 :root {
     --text-color: #{$color-black};
+    --text-color-soft: color-mix(in srgb, var(--text-color), #fff 35%);
     --background-color: #{$color-white};
 
     --color-success: #4d9f2a;

@@ -5,7 +5,6 @@
             <InputField v-model="objName" title="Name" type="text" />
             <InputField v-model="objDescription" title="Description" type="text" />
         </div>
-
         <div class="wrapper">
             <div class="group-title"><span>General</span></div>
             <div class="input-wrapper">
@@ -17,14 +16,15 @@
                 <div class="input-help-text">Searchable list of tags</div>
             </div>
             <div class="group-title"><span>Properties</span></div>
-            <GForm :config="formconfig" :values="formvalues"/>
+            <!-- <div>{{ frm }}</div> -->
+            <GForm :config="frm" ref="mainform"/>
 
             <textarea v-if='false' rows="50" v-model="txt" style="width: 100%"></textarea>
         </div>
         <!-- <div class="editactionbar">action bar</div> -->
     </div>
     <div class="data-toolbar">
-        <GButton disabled class="" action="save" @click.stop="btnClick">Save</GButton>
+        <GButton class="" action="save" @click.stop="btnClick">Save</GButton>
     </div>
 </template>
 
@@ -60,56 +60,27 @@ export default {
             objName: '',
             objDescription: '',
             txt: '',
-            formconfig: {
-                fields: []
-            },
+            frm: {},
             formvalues: [],
         }
     },
     methods: {
         initForm() {
-            this.txt = JSON.stringify(this.obj, null, 4)
-
-            this.formconfig.fields = []
+            //this.formconfig.fields = []
             this.formvalues = []
             var mt = mtypes.get(this.obj.mtype)
+            this.title = mt.description;
             this.objName = this.obj.name;
             this.objDescription = this.obj.description;
-            var prop,v
-            //console.log('mt', mt)//, this.obj.properties)
-            if (mt) {
-                this.title = mt.description
-                for (var key in mt.properties) {
-                    prop = mt.properties[key]
-                    this.formconfig.fields.push({
-                        'datatype': prop.datatype,
-                        'name': prop.label,
-                        'help': prop.help
-                    })
-                    v = this.obj.properties[key]
-                    this.formvalues.push(v)
-                    //console.log('prop', key, v)
-                }
-
-                // init tags
-                var input = document.querySelector('input[name=basic]');
-                tgf = new Tagify(input, {
-                    whitelist: [],
-                    backspace: 'edit',
-                    dropdown: {
-                        fuzzySearch: true,
-                        //position: "input",
-                        enabled: 3 // always opens dropdown when input gets focus
-                    }
-                })
-                tgf.on('input', this.onTagifyInput);
-            }
+            this.frm = mtypes.setupForm(this.obj)
         },
         onTagifyInput(evt) {
         },
         async btnClick(evt, btn) {
             switch (btn.action) {
                 case 'save':
+
+                    this.txt = this.txt + this.$refs.mainform.getData()
                     break;
             }
         }

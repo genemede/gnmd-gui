@@ -83,6 +83,14 @@ export default {
         }
     },
     methods:{
+        onKeyDown(event) {
+            //debug_log("EVENT", event.key);
+            if (event.keyCode === 27) {
+                if (this.$store.ui.dialogShowing) {
+                    this.intCancelDlg()
+                }
+            }
+        },
         test() {
             //debug_log('--- app test ---')
         },
@@ -164,6 +172,12 @@ export default {
             if (this.dlgOptions != null) return this.dlgOptions.simple;
             return false;
         }
+    },
+    created() {
+        window.addEventListener('keydown', this.onKeyDown);
+    },
+    beforeDestroy() {
+        window.removeEventListener('keydown', this.onKeyDown);
     },
     mounted() {
         genemedeAPI.apiGet("config").then((res) => {
