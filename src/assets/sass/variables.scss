@@ -35,6 +35,7 @@ $color-cogitate-red: #DD0F5A;
     --text-color: #{$color-black};
     --text-color-soft: color-mix(in srgb, var(--text-color), #fff 35%);
     --background-color: #{$color-white};
+    --background-color-accent: color-mix(in srgb, var(--background-color), #000 5%);
 
     --color-success: #4d9f2a;
     --color-danger: #dd160f;

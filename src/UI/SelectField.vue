@@ -5,11 +5,16 @@ defineEmits(['update:modelValue', 'blur', 'click'])
 <template>
     <div class="input-wrapper padded">
         <label class="label" v-html="title" :class="labelClass"></label>
+        <!--
         <multiselect
             v-model="selvalue" :options="getOptions" track-by="code" label="value"
             :placeholder="getPlaceholder"
             @update:modelValue="onChange">
         </multiselect>
+        -->
+
+        <vSelect ref="selfld" @search:focus="onfcs" @open="onOpen" :autoscroll="true" v-model="selvalue" label="value" :options="getOptions" @update:modelValue="onChange"></vSelect>
+
         <div class="error-message" :class="errClass">{{errorMessage}}</div>
         <div class="input-help-text">{{help}}</div>
         <template v-if="false">
@@ -20,6 +25,10 @@ defineEmits(['update:modelValue', 'blur', 'click'])
 </template>
 <script>
 import Multiselect from 'vue-multiselect'
+import vSelect from 'vue-select'
+import 'vue-select/dist/vue-select.css';
+
+import { ref, nextTick } from 'vue'
 
 export default {
     props: {
@@ -36,6 +45,7 @@ export default {
     },
     data () {
         return {
+            oneshot: true,
             hasError: false,
             errorMessage: '',
             intOptions: [],
@@ -44,7 +54,8 @@ export default {
     },
     name: 'SelectField',
     components: {
-        Multiselect
+        Multiselect,
+        vSelect
     },
     async mounted() {
         /*
@@ -75,6 +86,22 @@ export default {
         }
     },
     methods: {
+        onOpen(x) {
+            debug_log("OPENING")
+
+        },
+        onfcs() {
+            if (this.oneshot) {
+                nextTick(() => {
+                    debug_log("SCROLLING")
+                    const active = this.$refs.selfld.$el.querySelector(".vs__dropdown-menu .vs__dropdown-option--selected");
+                    if (active) {
+                        active.scrollIntoView( { behavior: 'instant', block: 'nearest', inline: 'start' } );
+                        this.oneshot = false
+                    }
+                });
+            }
+        },
         onChange(value) {
             var s;
             if (value) {

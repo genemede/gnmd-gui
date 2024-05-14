@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import { useGlobalStore } from '@/stores/globalstore'
 
 // define routes before creating router
 const rts = [
@@ -46,8 +47,10 @@ const rts = [
         name: 'dataCreate',
         props: { mode: 'create' },
         component: () => import('../views/DataItemEdit.vue'),
-        props: route => ({ mode: 'create', arg: route.params.mtype }),
+        //props: route => ({ mode: 'create', arg: route.params.mtype }),
+        props: route => ({ mode: 'create'}),
         beforeEnter: (to, from, next) => {
+            //console.log('SERVER', useGlobalStore().server.status);
             next();
         }
     },

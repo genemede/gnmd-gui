@@ -39,7 +39,11 @@ const GlobalHelpers = {
         var BB = ((B.toString(16).length==1)?"0"+B.toString(16):B.toString(16));
 
         return "#"+RR+GG+BB;
+    },
+    sortobject(o) {
+        return Object.keys(o).sort().reduce( (obj, key) => { obj[key] = o[key]; return obj; }, {});
     }
+
 }
 
 export default GlobalHelpers;

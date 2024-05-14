@@ -533,6 +533,20 @@ textarea {
 
 //=========================================================
 .relfield {
+    .rfopen {
+        display: none;
+        border: 1px dashed red;
+        &.visible {
+            display: block;
+        }
+    }
+    .rfclosed {
+        display: none;
+        border: 1px dashed green;
+        &.visible {
+            display: block;
+        }
+    }
     .relitem {
         &:not(:last-child) {
             border-bottom: 1px dashed var(--input-border-color);

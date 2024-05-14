@@ -2,8 +2,9 @@
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import App from './App.vue'
-import router from './router/router.js'
 const pinia = createPinia()
+
+import router from './router/router.js'
 import Notifications from '@kyvg/vue3-notification'
 
 const app = createApp(App)
@@ -21,6 +22,8 @@ import ConfirmDialog from '@/components/dlg/ConfirmDialog.vue'
 import InformDialog from '@/components/dlg/InformDialog.vue'
 
 import DataGrid from '@/components/DataGrid.vue'
+import GForm from '@/components/GForm.vue'
+import GModule from '@/components/GModule.vue'
 
 import helpers from './services/helpers';
 import storage from './services/storage';
@@ -44,6 +47,8 @@ app.component('InformDialog', InformDialog);
 
 // misc
 app.component('DataGrid', DataGrid);
+app.component('GForm', GForm);
+app.component('GModule', GModule);
 
 app.use(pinia);
 app.use(router);
@@ -55,8 +60,8 @@ app.config.globalProperties.$helpers = helpers;
 app.config.globalProperties.$storage = storage;
 app.config.globalProperties.$mtypes = GlobalMTypes;
 app.config.globalProperties.$dlg = dialogs;
+app.config.globalProperties.$router = router;
 
 app.mount('#app');
 
-var x = import.meta.env.BASE_URL
-console.log('===================', x)
+window.router = router

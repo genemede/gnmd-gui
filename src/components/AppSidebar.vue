@@ -7,6 +7,7 @@
                     <div class="sbitem" :action="itm" @click.stop="btnClick">{{ itm }}</div>
                 </template>
             </div>
+            <!-- <div v-if="this.$router.currentRoute.value.name == 'data'">DATA</div> -->
         </template>
         <div class="wrapper wireframe">
             <p>context specific sidebar functions</p>
@@ -39,7 +40,6 @@ export default {
     computed: {
         context() {
             var r = this.$route.path;
-            //console.log('type', typeof r, r)
             var res = '';
             if (r) {
                 if (r.startsWith('/data')) { res = 'data'}
@@ -47,7 +47,7 @@ export default {
             return res;
         },
         getMTList() {
-            console.log('route', this.$route.path)
+            //debug_log('route', this.$route.path)
             var res = []
 
             if (this.$mtypes.data != null) {

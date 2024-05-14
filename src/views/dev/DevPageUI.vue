@@ -4,7 +4,11 @@
             <h2>Dev Page</h2>
             <span>For ongoing UI development. Won't be active on release.</span>
         </div>
+
+        <vSelect label="value" :options="seloptions"></vSelect>
+
         <div class="wrapper" v-if="false">
+
 
             <multiselect v-model="selvalue_a" :options="seloptions" track-by="code" label="value"></multiselect>
             <div>{{ selvalue_a }}</div>
@@ -136,9 +140,14 @@ import Tagify from '@yaireo/tagify';
 import GForm from '@/components/GForm.vue'
 import { useGlobalStore } from '@/stores/globalstore'
 import Multiselect from 'vue-multiselect'
+
+import vSelect from 'vue-select'
+import 'vue-select/dist/vue-select.css';
+
 import { ref } from 'vue';
 import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css'
+
 
 
 const minTagLengthLookup = 3;
@@ -198,7 +207,8 @@ export default {
     components: {
         GForm,
         Multiselect,
-        VueDatePicker
+        VueDatePicker,
+        vSelect
     },
     async mounted() {
         console.log('mounted')

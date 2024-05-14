@@ -10,13 +10,46 @@
                 but it's designed to allow for any configuration needed.
             </p>
             <p><br></p>
-            <p>Try creating an instance of one of these metadata descriptors:<br><br>
-                <GButton class="" action="newlab" @click.stop="btnClick">Add Lab</GButton>
-                <GButton class="" action="newproject" @click.stop="btnClick">Add Project</GButton>
-                <GButton class="" action="newresearcher" @click.stop="btnClick">Add Researcher</GButton>
-                <GButton class="" action="newsubject" @click.stop="btnClick">Add Subject</GButton>
+            <div class="infobar">
+                <span>GAT Status: </span>
+                <span class="server-icon" v-if='this.$store.server.status === 0'>Unknown</span>
+                <span class="server-icon" v-if='this.$store.server.status === 1'>Offline</span>
+                <span class="server-icon" v-if='this.$store.server.status === 2'>Online</span>
+            </div>
+            <template v-if="this.$store.server.status === 2">
+                <p>Try creating an instance of one of these metadata descriptors:<br><br>
+
+                <template v-for="mt in $store.mtypes">
+                    <GButton :class="{ 'alternate': mt.namespace != ''}" :action="'add:' + mt.mtype" @click.stop="btnClick">Add {{ mt.description }}</GButton>
+                </template>
             </p>
+            </template>
+            <template v-else>
+                <p>
+                    Unable to connect to your local GAT server. Please make sure it is running.
+                    <a href="https://genemede.github.io/about/#how-to-install-genemede" target="_blank">Read more here</a>
+                </p>
+            </template>
+<!--
+            <template v-for="this.$mtypes.">
+                <div></div>
+            </template>
+
+             -->
         </div>
+        <div class="wrapper">
+
+            <HelpBox class='spacer-top' icon>
+                <template v-slot:title>No data is stored here</template>
+                <p>
+                    This web application is only a frontend for the GAT api. All data is stored on your local GAT instance.
+                    <br>
+                    <a href="https://genemede.github.io/about/" target="_blank">Read more here</a>
+                </p>
+            </HelpBox>
+
+        </div>
+
         <div class="wrapper" v-if="false">
             <div class="std-grid">
                 <div class="grid-cell">
@@ -51,7 +84,8 @@ export default {
         return {
             tags1: 'a,b,c',
             tags2: '',
-            text1: ''
+            text1: '',
+            mtlist: []
         }
     },
     watch: {
@@ -61,6 +95,8 @@ export default {
         },
     },
     mounted() {
+        //console.log(this.$mtypes.listMtypes())
+        /*
         var input = document.querySelector('input[name=basic]');
         tgf = new Tagify(input, {
             whitelist: [],
@@ -73,28 +109,20 @@ export default {
         })
         tgf.on('input', this.onTagifyInput);
         //this.initChart();
+        */
     },
     methods: {
         onTagifyInput(evt) {
         },
         btnClick(evt, btn) {
+            var act = btn.action.split(':')
             if (btn) {
-                switch (btn.action) {
-                case 'newproject':
-                    router.push('/data/create/project')
-                    break;
-                case 'newresearcher':
-                    router.push('/data/create/researcher')
-                    break;
-                case 'newlab':
-                    router.push('/data/create/lab')
-                    break;
-                case 'newsubject':
-                    router.push('/data/create/subject')
+                switch (act[0]) {
+                case 'add':
+                    router.push('/data/create/' + act[1])
                     break;
                 default:
                 }
-                //console.log('click', evt, btn.action);
             }
         },
         initChart() {

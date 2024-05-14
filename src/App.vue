@@ -84,10 +84,13 @@ export default {
     },
     methods:{
         onKeyDown(event) {
-            //debug_log("EVENT", event.key);
+            //debug_log("EVENT", event.key, event.keyCode);
             if (event.keyCode === 27) {
                 if (this.$store.ui.dialogShowing) {
                     this.intCancelDlg()
+                }
+                if (this.$store.ui.menuOpen) {
+                    this.$store.ui.menuOpen = false
                 }
             }
         },
@@ -185,6 +188,9 @@ export default {
             this.$store.setConfig(res.data.data);
             genemedeAPI.apiGet("mtypes").then((res) => {
                 mtypes.setData(res.data.data)
+                debug_log('v', res.data.data)
+
+                this.$store.setMTypes(res.data.data);
                 this.prepSidebar();
                 this.$notify({
                     type: "success",
@@ -192,6 +198,8 @@ export default {
                     title: "Connected",
                     text: "Connected to local GAT server."
                 });
+
+
             });
         })
         .catch(err => {

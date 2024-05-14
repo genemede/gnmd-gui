@@ -16,8 +16,9 @@
                 <div class="input-help-text">Searchable list of tags</div>
             </div>
             <div class="group-title"><span>Properties</span></div>
-            <!-- <div>{{ frm }}</div> -->
-            <GForm :config="frm" ref="mainform"/>
+            <!-- <div style="font-size: 10px">{{ frm.config.values }}</div> -->
+            <GForm :config="frm.config" :values="frm.config.values" ref="mainform"/>
+            <!-- <div style="font-size: 10px">{{ frm.config.values }}</div> -->
 
             <textarea v-if='false' rows="50" v-model="txt" style="width: 100%"></textarea>
         </div>
@@ -31,7 +32,6 @@
 <script>
 import genemedeAPI from '@/services/gnmd-api.js';
 import { useRoute } from 'vue-router'
-import GForm from '@/components/GForm.vue'
 import mtypes from '@/services/mtypes.js';
 import Tagify from '@yaireo/tagify';
 var tgf = null, controller = null;
@@ -45,56 +45,58 @@ export default {
         const route = useRoute()
         slug = route.params.slug
         mtype = route.params.mtype
-        console.log('============== slug', slug)
+        //debug_log('============== slug', slug)
     },
     props: {
         mode: String //{ type: String, default: 0}
     },
-    components: { GForm },
     data() {
         return {
             curMode: null,
             curMType: null,
-            title: 'Laboratory',
+            title: 'Data Item Edit',
             obj: null,
             objName: '',
             objDescription: '',
             txt: '',
-            frm: {},
-            formvalues: [],
+            frm: {
+                config: {},
+            }
         }
     },
     methods: {
         initForm() {
-            //this.formconfig.fields = []
-            this.formvalues = []
             var mt = mtypes.get(this.obj.mtype)
             this.title = mt.description;
             this.objName = this.obj.name;
             this.objDescription = this.obj.description;
-            this.frm = mtypes.setupForm(this.obj)
+            this.frm = mtypes.buildFormEx(mt.mtype, this.obj);
+            debug_log("NEWFORM", this.frm.config)
         },
         onTagifyInput(evt) {
+        },
+        saveObject() {
+            // iterate form values and replace properties on current object
+            // existing properties on the object that are not on the forms will not be touched
+            var v;
+            for (var key in this.frm.config.values) {
+                v = this.frm.config.values[key];
+                this.obj.properties[key] = v;
+            }
+            var body = this.obj;
+            genemedeAPI.apiPut('data/' + this.obj.guid, body).then((res) => {
+                console.log("post data: ", res.data, res.data.result);
+            });
         },
         async btnClick(evt, btn) {
             switch (btn.action) {
                 case 'save':
-
-                    this.txt = this.txt + this.$refs.mainform.getData()
+                    this.saveObject()
                     break;
             }
         }
     },
     mounted() {
-        debug_log('data item edit mode', this.mode);
-
-        /*
-        var r = this.$route.path;
-        if (r) {
-            if (r.startsWith('/data/edit/')) { this.curMode = 'edit'}
-            if (r.startsWith('/data/create/')) { this.curMode = 'create'}
-        }
-        */
         this.curMode = this.mode;
         switch (this.curMode) {
         case 'edit':
@@ -106,7 +108,7 @@ export default {
             break;
         case 'create':
             this.curMType = mtype;
-            debug_log('mtype', this.curMType)
+            debug_log('mtype', mtype, this.curMType)
             this.obj = {
                 mtype: this.curMType,
                 name: 'new ' + this.curMType,
@@ -117,9 +119,6 @@ export default {
             this.initForm()
             break;
         }
-
-        //debug_log('detail for ', slug)
-
     }
 }
 </script>

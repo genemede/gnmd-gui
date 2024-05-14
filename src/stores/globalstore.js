@@ -19,6 +19,7 @@ export const useGlobalStore = defineStore('globalstore', {
             isDlgWorking: false
         },
         devMode: import.meta.env.VITE_APP_ENV == "development",
+        mtypes: [],
         count: 0
     }),
     getters: {
@@ -34,6 +35,10 @@ export const useGlobalStore = defineStore('globalstore', {
         },
         increment() {
             this.count++
+        },
+        setMTypes(data) {
+            // sets handy list of available mtypes
+            this.mtypes = data;
         },
         setConfig(data) {
             if (data) {

@@ -26,94 +26,88 @@ const GlobalMTypes = {
         }
         return res;
     },
+    listMtypes() {
+        // simple list for user interfaces
+        var res = []
+        for (var key in this.data) {
+            res.push({
+                mtype: this.data[key].mtype,
+                description: this.data[key].description
+            });
+        }
+        return res;
+    },
     async getSource(srcname) {
         var res = await genemedeAPI.apiGet("sources/" + srcname);
         //debug_log("RES IS", res.data.data)
         return res
     },
-    setupForm(obj) {
-        var fields = []
-        var modules = []
+    buildFormEx(mtype, obj) {
 
-        var mt = this.get(obj.mtype)
-        var prop, formprop, v, modk
-
-        function doProp(key, sourceprops, sourceobj, modprefix) {
-            prop = sourceprops[key]
-            formprop = {
+        function doProp(key, prop) {
+            //debug_log("PROP", prop)
+            var formprop = {
                 'name': key,
                 'datatype': prop.datatype,
                 'label': prop.label,
                 'help': prop.help,
-                'sources': 'sources' in prop ? prop.sources : null
+                'sources': 'sources' in prop ? prop.sources : null,
             }
+
             if ('properties' in prop) {
                 // has sub properties, for link fields
-                formprop.properties = prop.properties
                 formprop.config = {
                     fields: []
                 }
+
                 for (var subkey in prop.properties) {
-                    var subprop = {
-                        'name': subkey,
-                        'datatype': prop.properties[subkey].datatype,
-                        'label': prop.properties[subkey].label,
-                        'help': prop.properties[subkey].help,
-                        'sources': 'sources' in prop.properties[subkey] ? prop.properties[subkey].sources : null
-                    }
-                    //v = prop.properties[key]
-                    //subprop.values = v
+                    var subprop = doProp(subkey, prop.properties[subkey])
                     formprop.config.fields.push(subprop)
                 }
             }
-            /*
-            if (modprefix !="") {
-                //modk =
-                debug_log("MODKEY", modprefix + "." + key)
-                v = sourceobj.properties[modprefix + "." + key]
-                debug_log("MODVAL", v)
-            }
-            else {
-                v = sourceobj.properties[key]
-            }
-            */
-            if (modprefix =="") {
-                v = sourceobj.properties[key]
-                formprop.values = v
-            }
-
             return formprop
         }
 
-        if (mt) {
-            var mod
-            for (var key in mt.properties) {
-                formprop = doProp(key, mt.properties, obj, "")
-                fields.push(formprop)
-            }
-
-            for (var modkey in mt.modules) {
-                debug_log("MODKEY", modkey)
-                mod = {
-                    config: {
-                        label: modkey,
-                        fields: []
-                    },
-                    values: []
-                }
-
-                for (var key in mt.modules[modkey].properties) {
-                    formprop = doProp(key, mt.modules[modkey].properties, obj, key)
-                    mod.config.fields.push(formprop)
-                }
-                mod.values = obj.properties["module." + modkey]
-                modules.push(mod)
+        var mt = this.get(mtype)
+        if (mt == null) return null;
+        var res = {
+            config: {
+                fields: [],
+                values: {}
             }
         }
-        var res = {fields: fields, modules: modules}
-        debug_log('- form config', res);
+        var fv
+        for (var key in mt.properties) {
+            fv = obj.properties[key]
+            res.config.values[key] = fv
+            var formprop = doProp(key, mt.properties[key])
+            res.config.fields.push(formprop)
+        }
+
+        // treat modules like fields, with datatype = module
+        //debug_log("OBJ", obj.properties)
+        for (var modkey in mt.modules) {
+            //debug_log("MOD", key, mt.modules[modkey].properties)
+            var formprop = doProp(modkey, mt.modules[modkey])
+            formprop.valuekey = "module." + modkey
+            fv = obj.properties[formprop.valuekey]
+
+            // enforce array types for values
+            if (fv === undefined) {
+                fv = []
+            } else
+            if (typeof fv == 'object') {
+                if (!Array.isArray(fv)) {
+                    fv = [fv]
+                }
+            }
+            res.config.values[formprop.valuekey] = fv
+            res.config.fields.push(formprop)
+        }
+
         return res;
-    }
+    },
+
 }
 
 export default GlobalMTypes;
