@@ -3,7 +3,12 @@
     padding: 6px 12px;
     //border: 1px dashed red;
     margin-bottom: 16px;
+    &.warning {
+        //border: 1px solid var(--button-background-color-warning);
+        background-color: color-mix(in srgb, var(--color-warning) 15%, var(--background-color));
+    }
 }
+
 .sri {
     .mtype {
         display: inline-block;
@@ -12,6 +17,19 @@
         font-size: 14px;
     }
 
+}
+
+.sblink {
+    display: block;
+    -webkit-user-drag: none;
+    padding: 4px 24px;
+    color: var(--nav-link-color);
+    text-decoration: none;
+
+    &.router-link-active {
+        background-color: color-mix(in srgb, var(--sidebar-background-color), #000 5%);
+        color: white !important;
+    }
 }
 
 .pad-left-extra {
@@ -125,3 +143,80 @@ top: 0;
 z-index: 10;
 }
 
+//=================
+.gtoggle {
+    display: inline-block;
+    @include no-select();
+    border: 1px solid var(--input-border-color);
+    overflow: hidden;
+    //border-radius: 5px;
+    font-size: 16px;
+    vertical-align: middle;
+
+    > .buttons {
+        display: inline-block;
+        position: relative;
+        //background-color: pxlightness(--button-background-color, 0.2, 0.4);
+
+        > .togbutton {
+            //color: var(--button-text-color);
+            height: 30px;
+            text-align: center;
+            display: inline-block;
+            position: relative;
+            cursor: pointer;
+            padding: 4px 6px 4px;
+            transition: opacity 0.25s, background-color 0.20s;
+            &.is-on {
+                color: var(--button-text-color-hot);
+                background-color: pxlightness(--button-background-color, 0.80);
+                text-shadow:
+                            1px 1px 14px pxlightness(--button-background-color, 1.1),
+                            2px 2px 9px pxlightness(--button-background-color, 1.2);
+            }
+            &:first-child {
+                padding-left: 12px;
+            }
+            &:last-child {
+                padding-right: 12px;
+            }
+            &:not(:first-child) {
+                border-left: 1px dashed red;
+            }
+        }
+    }
+    &.small {
+        font-size: 14px;
+        > .buttons {
+            > .togbutton {
+                //padding: 5px 6px 3px;
+                padding: 6px 6px 5px;
+
+            }
+        }
+    }
+    &.wide {
+        > .buttons {
+            > .togbutton {
+                //padding: 5px 6px 3px;
+                padding: 4px 18px 4px;
+                &:first-child {
+                    padding-left: 24px;
+                }
+                &:last-child {
+                    padding-right: 24px;
+                }
+            }
+        }
+    }
+
+    &.disabled {
+        pointer-events: none;
+        filter: saturate(0.3);
+        opacity: 0.3;
+    }
+
+        &:not(:first-child) {
+        margin-left: 8px;
+    }
+}

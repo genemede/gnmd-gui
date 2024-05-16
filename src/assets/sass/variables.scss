@@ -8,6 +8,8 @@ $nav-height-mobile: 40px;
 $footer-height-desktop: 48px;
 $footer-height-mobile: 72px;
 
+
+
 $nav-mobile-breakpoint: 640px;
 $footer-mobile-breakpoint: 640px; //960px;
 
@@ -32,15 +34,24 @@ $color-cogitate-red: #DD0F5A;
 //font-family: 'Nanum Gothic', sans-serif;
 
 :root {
-    --text-color: #{$color-black};
-    --text-color-soft: color-mix(in srgb, var(--text-color), #fff 35%);
-    --background-color: #{$color-white};
-    --background-color-accent: color-mix(in srgb, var(--background-color), #000 5%);
+    --nav-height-desktop: 48px;
+    --edit-toolbar-height-desktop: 42px;
+    --dlg-title-height: 48px;
 
     --color-success: #4d9f2a;
     --color-danger: #dd160f;
     --color-warning: #ed9e2e;
     --color-info: #4a9af7;
+
+
+    --text-color: #{$color-black};
+    --text-color-soft: color-mix(in srgb, var(--text-color), #fff 35%);
+
+    --text-color-warning: color-mix(in srgb, var(--color-warning) 50%, var(--text-color));
+    --text-color-danger: color-mix(in srgb, var(--color-danger) 50%, var(--text-color));
+
+    --background-color: #{$color-white};
+    --background-color-accent: color-mix(in srgb, var(--background-color), #000 5%);
 
     --button-background-color: #{$color-cogitate-blue};
     --button-text-color: white;
@@ -104,6 +115,11 @@ $color-cogitate-red: #DD0F5A;
     --font-input-label-size: 14px;
     --font-input-help-text-size: 12px;
     //--input-text-disabled-color
+
+    --vs-border-color: var(--input-border-color);
+    --vs-border-width: 1px;
+    --vs-border-style: solid;
+    --vs-border-radius: var(--input-border-radius);
 
     --sidebar-width: 300px;
 }
@@ -216,4 +232,45 @@ $color-cogitate-red: #DD0F5A;
     @return hsla($color-h, $color-s, $color-l, $alpha);
     //$tmp: $color + '-hsl';
     //@return unquote('hsla(var(#{$tmp}), #{$alpha})');
+}
+
+
+
+
+
+
+
+
+
+
+
+$color-yellow: #9d7321;
+$color-white: #d3c9b4;
+$color-white: #777;
+
+.text-glow-white {
+    animation: text-glow-white 700ms ease-out infinite alternate;
+}
+
+.text-glow-danger {
+    animation: text-glow-danger 700ms ease-out infinite alternate;
+}
+
+$color-glow: $color-yellow;
+:root {
+    --cg1: color-mix(in srgb, var(--color-danger), transparent 40%);
+    --cg2: color-mix(in srgb, var(--color-danger), transparent 10%);
+}
+
+@keyframes text-glow-danger {
+    0% {
+        //text-shadow: 0 0 10px rgba($color-glow,.4), 0 0 20px rgba($color-glow,.2);
+        text-shadow: 0 0 10px var(--cg1), 0 0 20px var(--cg2);
+
+
+    }
+    100% {
+        //text-shadow: 0 0 30px rgba($color-glow, .95), 0 0 40px rgba($color-glow,.85);
+        text-shadow: 0 0 30px var(--cg2), 0 0 40px var(--cg1);
+    }
 }

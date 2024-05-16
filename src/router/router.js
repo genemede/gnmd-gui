@@ -12,17 +12,47 @@ const rts = [
     },
     {
         path: '/data',
-        name: 'data',
-        component: () => import('../views/ManageData.vue'),
+        name: 'dataroot',
+        redirect: { name: 'dataManage'},
+        //component: () => import('../views/ManageRoot.vue'),
         children: [
+
+            {
+                path: '/data/manage',
+                name: 'dataManage',
+                //alias: '/data',
+                component: () => import('../views/ManageData.vue'),
+            },
             {
                 path: '/data/manage/:mtype',
-                name: 'dataManage',
-                component: () => import('../views/ManageData.vue'),
+                name: 'dataManageMtype',
+                component: () => import('../views/ManageMtype.vue'),
+            },
+            {
+                path: '/data/edit/:slug',
+                name: 'dataEdit',
+                component: () => import('../views/DataItemEdit.vue'),
+                props: route => ({ mode: 'edit'}),
+                beforeEnter: (to, from, next) => {
+                    next();
+                }
+            },
+            {
+                path: '/data/create/:mtype',
+                name: 'dataCreate',
+                props: { mode: 'create' },
+                component: () => import('../views/DataItemEdit.vue'),
+                //props: route => ({ mode: 'create', arg: route.params.mtype }),
+                props: route => ({ mode: 'create'}),
+                beforeEnter: (to, from, next) => {
+                    //console.log('SERVER', useGlobalStore().server.status);
+                    next();
+                }
             },
 
         ]
     },
+
 
     {
         path: '/data/view/:slug',
@@ -30,27 +60,6 @@ const rts = [
         component: () => import('../views/DataItemView.vue'),
         props: route => ({ arg: route.params.slug }),
         beforeEnter: (to, from, next) => {
-            next();
-        }
-    },
-    {
-        path: '/data/edit/:slug',
-        name: 'dataEdit',
-        component: () => import('../views/DataItemEdit.vue'),
-        props: route => ({ mode: 'edit'}),
-        beforeEnter: (to, from, next) => {
-            next();
-        }
-    },
-    {
-        path: '/data/create/:mtype',
-        name: 'dataCreate',
-        props: { mode: 'create' },
-        component: () => import('../views/DataItemEdit.vue'),
-        //props: route => ({ mode: 'create', arg: route.params.mtype }),
-        props: route => ({ mode: 'create'}),
-        beforeEnter: (to, from, next) => {
-            //console.log('SERVER', useGlobalStore().server.status);
             next();
         }
     },

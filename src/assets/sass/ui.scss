@@ -43,7 +43,7 @@ $overlap-nav-bar: false;
 }
 
 .sidebar-container {
-    margin-top: $nav-height-desktop;
+    margin-top: var(--nav-height-desktop);
     background-color: var(--sidebar-background-color);
     color: var(--sidebar-text-color);
     float: left;
@@ -60,15 +60,14 @@ $overlap-nav-bar: false;
     position: relative;
     z-index: 1;
     @if $overlap-nav-bar {
-        padding-top: $nav-height-desktop;
+        padding-top: var(--nav-height-desktop);
         height: 100vh;
     } @else {
-        margin-top: $nav-height-desktop;
-        height: calc(100vh - #{$nav-height-desktop});
+        margin-top: var(--nav-height-desktop);
+        height: calc(100vh - var(--nav-height-desktop));
     }
 
-    //min-height: calc(100vh - #{$nav-height-desktop} - #{$footer-height-desktop});
-    height: calc(100vh - #{$nav-height-desktop});
+    height: calc(100vh - var(--nav-height-desktop));
 
     overflow-y: scroll;
     //overflow: hidden;
@@ -80,7 +79,8 @@ $overlap-nav-bar: false;
     }
     .middle {
         margin: 0 auto;
-        min-height: calc(100vh - #{$nav-height-desktop} - #{$footer-height-desktop});
+        min-height: calc(100vh - var(--nav-height-desktop) - var(--edit-toolbar-height-desktop));
+
         //padding: 16px 16px 48px;
         padding-top: 8px 0 48px;
         text-align: left;
@@ -469,6 +469,7 @@ $overlap-nav-bar: false;
 }
 
 .data-toolbar {
+    display: flex;
     background-color: var(--toolbar-background-color);
     color: var(--toolbar-text-color);
     position: sticky;
@@ -478,4 +479,11 @@ $overlap-nav-bar: false;
     text-align: right;
     bottom: 0;
     z-index: 10;
+    .info {
+        padding: 3px 4px;
+    }
+    .actions {
+        margin-left: auto;
+        padding-left: 8px;
+    }
 }

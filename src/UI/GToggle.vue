@@ -1,13 +1,13 @@
 <template>
-    <div class='field-container'>
-        <div class="toogle-buttons">
-            <label class="toogle-control" v-for='(item, index) in values' :key='`tog-${index}`'>
-                <span :class="{'toggle-checkmark': true, 'exclusive': exclusive, 'is-on': item.on}" @click.stop='clickToggle($event, index)' />
-                <span class='toggle-text' v-html='getText(item)' />
-            </label>
+    <div class='gtoggle'>
+        <div class='buttons'>
+            <span class='togbutton' v-for='(item, index) in values' :key='`tog-${index}`'
+                @click='clickToggle($event, index)'
+            :class='{"is-on": item.on}' v-html='getText(item)'></span>
         </div>
     </div>
 </template>
+
 <script>
 
 export default {

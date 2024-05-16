@@ -3,7 +3,7 @@ $menu-width-mobile: 280px;
 
 .navigation-bar {
     @include no-select();
-    height: $nav-height-desktop;
+    height: var(--nav-height-desktop);
     padding: 0px;
     display: flex;
     position: fixed;
@@ -52,7 +52,6 @@ $menu-width-mobile: 280px;
             transition: transform 0.3s ease-out;
             .navlink {
                 -webkit-user-drag: none;
-                background-color: gray;
                 display: inline-block;
                 padding: 4px 24px;
                 color: var(--nav-link-color);
@@ -193,7 +192,7 @@ $menu-width-mobile: 280px;
         color: var(--menu-text-color);
         box-shadow: 5px 5px 12px 6px rgba(0, 0, 0, 0.75);
         position: absolute;
-        top: $nav-height-desktop;
+        top: var(--nav-height-desktop);
         right: 1px;
         //background-color: pxalpha(--menu-background-color, 0.9);
         background-color: var(--menu-background-color);

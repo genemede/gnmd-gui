@@ -12,11 +12,12 @@
                     <span>Home</span>
                 </RouterLink>
                 <!-- <RouterLink class="navlink" :to="{name: 'data'}">Data</RouterLink> -->
-                <RouterLink class="navlink" to="/data">Data</RouterLink>
+                <RouterLink class="navlink" :to="{name: 'dataroot'}">Data</RouterLink>
                 <!-- <RouterLink class="navlink" :to="{ name: 'mtypes' }">MTypes</RouterLink> -->
                 <RouterLink class="navlink" :to="{name: 'search'}">Search</RouterLink>
-                <RouterLink class="navlink" :to="{name: 'explore'}">Explore</RouterLink>
+                <!-- <RouterLink class="navlink" :to="{name: 'explore'}">Explore</RouterLink> -->
                 <RouterLink v-if="this.$store.devMode" class="navlink devlink" :to="{name: 'devpage'}">Dev</RouterLink>
+                <!-- <span>{{ this.$router.currentRoute.value.path }}</span> -->
             </div>
 
             <div class="user">

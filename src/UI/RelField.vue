@@ -58,7 +58,7 @@
     </div>
 </template>
 <script>
-import GForm from '@/components/GForm.vue'
+
 export default {
     props: {
         modelValue: null,
@@ -71,7 +71,7 @@ export default {
     },
     emits: {
     },
-    components: { GForm },
+    components: { },
     data () {
         return {
             formVisible: false

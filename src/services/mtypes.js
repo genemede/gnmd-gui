@@ -39,7 +39,7 @@ const GlobalMTypes = {
     },
     async getSource(srcname) {
         var res = await genemedeAPI.apiGet("sources/" + srcname);
-        //debug_log("RES IS", res.data.data)
+        //debug_log("SRC IS", res.data.data)
         return res
     },
     buildFormEx(mtype, obj) {
@@ -52,6 +52,7 @@ const GlobalMTypes = {
                 'label': prop.label,
                 'help': prop.help,
                 'sources': 'sources' in prop ? prop.sources : null,
+                'repeatable': 'repeatable' in prop ? prop.repeatable : false,
             }
 
             if ('properties' in prop) {
@@ -87,7 +88,7 @@ const GlobalMTypes = {
         // treat modules like fields, with datatype = module
         //debug_log("OBJ", obj.properties)
         for (var modkey in mt.modules) {
-            //debug_log("MOD", key, mt.modules[modkey].properties)
+            //debug_log("MOD", modkey, mt.modules[modkey])
             var formprop = doProp(modkey, mt.modules[modkey])
             formprop.valuekey = "module." + modkey
             fv = obj.properties[formprop.valuekey]

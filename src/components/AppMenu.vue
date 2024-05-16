@@ -24,7 +24,10 @@
 
             <div class="separator"></div>
             <div>
-                <span v-if="$store.server.version != ''">V. {{ $store.server.version }}</span>
+                <span>V. <strong>{{ version }}</strong></span>
+            </div>
+            <div>
+                <span v-if="$store.server.version != ''">GAT <strong>V. {{ $store.server.version }}</strong></span>
             </div>
             <div><span class="small">{{appenv}}</span></div>
         </div>
@@ -36,7 +39,9 @@ export default {
     name: 'AppMenu',
     props: {},
     data() {
-        return {};
+        return {
+            version: ''
+        };
     },
     methods: {
         menuClick(arg) {
@@ -57,6 +62,7 @@ export default {
     created() {},
     destroyed() {},
     mounted() {
+        this.version = import.meta.env.VITE_APP_VERSION;
     },
     computed: {
         appenv() {

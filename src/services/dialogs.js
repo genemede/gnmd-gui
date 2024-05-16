@@ -28,7 +28,7 @@ const DialogsService = {
             cancelText: 'Cancel',
             type: 'confirm'
         };
-        debug_log('confirm', opts, dlgOptions);
+        //debug_log('confirm', opts, dlgOptions);
         if (dlgOptions != null) opts = { ...opts, ...dlgOptions };
         return this.showDialog('ConfirmDialog', null, opts);
     },
@@ -86,7 +86,7 @@ const DialogsService = {
         if (Array.isArray(dlgData)) {
             // arguments passed in array; dialog must be registered for this to work
 
-            console.log('SHOW DIALOG AA', dlg.arguments.length, dlgData.length);
+            //console.log('SHOW DIALOG AA', dlg.arguments.length, dlgData.length);
             if (dlg && dlg.arguments.length == dlgData.length) {
                 data = {};
                 for (let i = 0; i < dlgData.length; i += 1) {

@@ -96,11 +96,9 @@
         }
     }
     .cogs {
-        //border: 1px solid black;
         display: inline-block;
         position: absolute;
-        left: calc(50% - 16px);
-        //right: -15px;
+        left: calc(50% - 8px);
         top: 6px;
         transition: transform 0.25s, opacity 0.25s;
         //transform: scale(0);
@@ -158,6 +156,11 @@
 		font-size: 13px;
 		padding: 3px 8px;
 		min-width: auto;
+        .cogs {
+            font-size: 12px;
+            left: calc(50% - 6px);
+            top: 4px;
+        }
 	}
 	&.smaller {
 		font-size: 11px;

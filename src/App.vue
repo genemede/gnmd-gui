@@ -79,7 +79,6 @@ export default {
             dlgName: null,
             dlgOptions: null,
             dlgData: null,
-            sbMtypes: [],
         }
     },
     methods:{
@@ -154,13 +153,7 @@ export default {
         },
         dlgCancelEvent() {
             this.intCancelDlg();
-        },
-        prepSidebar() {
-            for (var i in mtypes.data) {
-                this.sbMtypes.push(mtypes.data[i].mtype)
-            }
         }
-
     },
     computed: {
         getDialogTitle() {
@@ -183,36 +176,7 @@ export default {
         window.removeEventListener('keydown', this.onKeyDown);
     },
     mounted() {
-        genemedeAPI.apiGet("config").then((res) => {
-            //debug_log('v', res.data.data)
-            this.$store.setConfig(res.data.data);
-            genemedeAPI.apiGet("mtypes").then((res) => {
-                mtypes.setData(res.data.data)
-                debug_log('v', res.data.data)
-
-                this.$store.setMTypes(res.data.data);
-                this.prepSidebar();
-                this.$notify({
-                    type: "success",
-                    group: "std",
-                    title: "Connected",
-                    text: "Connected to local GAT server."
-                });
-
-
-            });
-        })
-        .catch(err => {
-            this.$store.setConfig(null);
-            this.$notify({
-                type: "error",
-                group: "std",
-                title: "Error",
-                text: "Local GAT server is not responding.",
-            });
-        });
-
-
+        this.$store.connectToGat()
         this.$dlg.setApp(this);
         // prepare mtypes colors
 

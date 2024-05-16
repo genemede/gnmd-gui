@@ -3,8 +3,9 @@ defineEmits(['update:modelValue', 'blur', 'click'])
 </script>
 
 <template>
-    <div class="input-wrapper padded">
-        <label class="label" v-html="title" :class="labelClass"></label>
+    <div class="input-wrapper">
+        <!-- <div>MV {{ modelValue }} / SV {{ selvalue }}</div> -->
+        <label class="label" v-html="title" :class="labelClass" v-if="title"></label>
         <!--
         <multiselect
             v-model="selvalue" :options="getOptions" track-by="code" label="value"
@@ -13,10 +14,16 @@ defineEmits(['update:modelValue', 'blur', 'click'])
         </multiselect>
         -->
 
-        <vSelect ref="selfld" @search:focus="onfcs" @open="onOpen" :autoscroll="true" v-model="selvalue" label="value" :options="getOptions" @update:modelValue="onChange"></vSelect>
+        <vSelect
+            @input="onInput"
+            ref="selfld" @search:focus="onfcs" @open="onOpen"
+            :autoscroll="true" v-model="selvalue" label="value"
+            :options="getOptions" :reduce="value => value.code"
+            @update:modelValue="onChange">
+        </vSelect>
 
         <div class="error-message" :class="errClass">{{errorMessage}}</div>
-        <div class="input-help-text">{{help}}</div>
+        <div class="input-help-text" v-if="help">{{help}}</div>
         <template v-if="false">
             <div>MODEL VALUE {{ modelValue }} --</div>
             <div>INTERNAL VALUE {{ selvalue }} --</div>
@@ -26,7 +33,6 @@ defineEmits(['update:modelValue', 'blur', 'click'])
 <script>
 import Multiselect from 'vue-multiselect'
 import vSelect from 'vue-select'
-import 'vue-select/dist/vue-select.css';
 
 import { ref, nextTick } from 'vue'
 
@@ -41,7 +47,8 @@ export default {
         help: String,
         helperror: Boolean,
         source: null,
-        options: null
+        options: null,
+        joinlabel: false
     },
     data () {
         return {
@@ -58,42 +65,31 @@ export default {
         vSelect
     },
     async mounted() {
-        /*
-        debug_log("OPTIONS", this.options)
-        debug_log("SOURCE", this.source)
-        debug_log("VALUE", this.modelValue)
-        */
-        //
-        if (this.modelValue != null) {
-            var s = this.modelValue.split("|")
-            if (s.length == 2) {
-                this.selvalue = {"code": s[0], "value": s[1]}
-            }
-            else {
-                this.selvalue = {"code": s[0], "value": null}
-            }
-        }
-
         if (this.options == null) {
             if (this.source != null) {
                 var src = await this.$mtypes.getSource(this.source);
-                //debug_log("GOT SOURCE", src)
                 this.intOptions = src.data.data.codes;
             }
         }
         else {
             this.intOptions = this.options;
         }
+
+        if (this.modelValue != null) {
+            this.selvalue = this.modelValue
+        }
     },
     methods: {
         onOpen(x) {
-            debug_log("OPENING")
-
+            //debug_log("OPENING")
+        },
+        onInput() {
+            //console.log("ON INPUT")
         },
         onfcs() {
             if (this.oneshot) {
                 nextTick(() => {
-                    debug_log("SCROLLING")
+                    //debug_log("SCROLLING")
                     const active = this.$refs.selfld.$el.querySelector(".vs__dropdown-menu .vs__dropdown-option--selected");
                     if (active) {
                         active.scrollIntoView( { behavior: 'instant', block: 'nearest', inline: 'start' } );
@@ -103,15 +99,29 @@ export default {
             }
         },
         onChange(value) {
-            var s;
-            if (value) {
-                s = value.code + "|" + value.value;
-            }
-            else {
-                s = null;
+            var s = value;
+            if (this.joinlabel) {
+                for (var i in this.intOptions) {
+                    console.log('I is', this.intOptions[i])
+                    if (this.intOptions[i].code == s) {
+                        s = s + "|" + this.intOptions[i].value;
+                        break;
+                    }
+                }
             }
             this.$emit('update:modelValue', s);
         }
+    },
+    watch: {
+        selvalue(newVal, oldVal) {
+            //console.log('OLD', oldVal, 'NEW', newVal)
+        },
+        modelValue(newVal, oldVal) {
+            //console.log('MVOLD', oldVal, 'MVNEW', newVal)
+            if (newVal != this.selvalue) {
+                this.selvalue = newVal
+            }
+        },
     },
     computed: {
         getOptions() {

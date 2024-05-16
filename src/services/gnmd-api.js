@@ -40,7 +40,7 @@ const genemedeAPI = {
     },
     apiPostEx(cmd, body, method, multipart) {
         // general use post
-        console.log('postex', cmd, method, body);
+        //console.log('postex', cmd, method, body);
         var h = {};
         if (multipart) {
             h = { 'Content-Type': 'multipart/form-data' };

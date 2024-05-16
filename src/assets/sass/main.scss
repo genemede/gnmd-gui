@@ -5,6 +5,7 @@
 @import 'datatables.net-buttons-dt';
 @import 'datatables.net-responsive-dt';
 @import 'datatables.net-select-dt';
+@import 'vue-select/dist/vue-select.css';
 
 @import "ui";
 @import "grids";
@@ -54,6 +55,18 @@ body {
 
 .nowrap {
     white-space: nowrap;
+}
+
+.spaced {
+    margin-right: 8px;
+}
+
+.color-warning {
+    color: var(--text-color-warning);
+}
+
+.color-danger {
+    color: var(--text-color-danger);
 }
 
 #app {

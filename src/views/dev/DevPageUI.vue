@@ -3,13 +3,21 @@
         <div class="wrapper">
             <h2>Dev Page</h2>
             <span>For ongoing UI development. Won't be active on release.</span>
+            <hr>
+        </div>
+        <div class="wrapper">
+            <div class="input-wrapper rounded" name="tsttoggle">
+                <div>{{ togvalues }}</div>
+                <label class="label is-required">Toggle</label>
+                <div class="control full">
+                    <GToggle :values='togvalues' />
+                </div>
+            </div>
         </div>
 
         <vSelect label="value" :options="seloptions"></vSelect>
 
         <div class="wrapper" v-if="false">
-
-
             <multiselect v-model="selvalue_a" :options="seloptions" track-by="code" label="value"></multiselect>
             <div>{{ selvalue_a }}</div>
             <hr>
@@ -34,19 +42,6 @@
             <GButton class="" action="dlgalert" @click.stop="btnClick">dlgalert</GButton>
         </div>
 
-        <div class="wrapper">
-            <h2>Dev Page</h2>
-            <span>For ongoing UI development. Won't be active on release.</span>7
-            <GButton class="" action="post" @click.stop="btnClick">post</GButton>
-            <GButton class="" action="put" @click.stop="btnClick">put</GButton>
-
-        </div>
-
-        <div class="wrapper">
-            <RelField title="Relationship A" v-model="rels1" help="Relationship Editor A"/>
-            <RelField title="Relationship B" v-model="rels2" help="Relationship Editor B"/>
-            <InputField title="name" type="text" disabled />
-        </div>
         <div class="wrapper" v-if="false">
             <hr>
             <span class="tst1">text</span>
@@ -55,7 +50,7 @@
         </div>
         <div v-if="true">
             <div class="wrapper">
-                <GButton class="" action="def" @click.stop="btnClick">Button</GButton>
+                <GButton class="" action="def" @click.stop="btnClick" ref="btn1">Button</GButton>
                 <GButton class="alternate" @click.prevent="btnClick">Alternate</GButton>
                 <GButton class="secondary" @click.prevent="btnClick">Secondary</GButton>
                 <span>|</span>
@@ -76,7 +71,7 @@
             </div>
 
             <div class="wrapper">
-                <GButton class="small" @click.prevent="btnClick">Button</GButton>
+                <GButton class="small" @click.prevent="btnClick" ref="btn1small">Button</GButton>
                 <GButton class="alternate small" @click.prevent="btnClick">Alternate</GButton>
                 <GButton class="secondary small" @click.prevent="btnClick">Secondary</GButton>
                 <GButton class="success small" @click.prevent="btnClick">Success</GButton>
@@ -93,14 +88,6 @@
                 <GButton class="danger small disabled" @click.prevent="btnClick">Error</GButton>
                 <GButton class="warning small disabled" @click.prevent="btnClick">Warning</GButton>
                 <GButton class="info small disabled" @click.prevent="btnClick">Info</GButton>
-            </div>
-        </div>
-        <div class="wrapper">
-            <div class="input-wrapper rounded" name="tsttoggle">
-                <label class="label is-required">Toggle</label>
-                <div class="control full">
-                    <GToggle :values='togvalues' />
-                </div>
             </div>
         </div>
 
@@ -142,7 +129,6 @@ import { useGlobalStore } from '@/stores/globalstore'
 import Multiselect from 'vue-multiselect'
 
 import vSelect from 'vue-select'
-import 'vue-select/dist/vue-select.css';
 
 import { ref } from 'vue';
 import VueDatePicker from '@vuepic/vue-datepicker';
@@ -211,9 +197,13 @@ export default {
         vSelect
     },
     async mounted() {
-        console.log('mounted')
+        console.log('mounted', this.$refs, this.$refs.btn1)
+        this.$refs.btn1.isWaiting = true;
+        this.$refs.btn1small.isWaiting = true;
+
         var src = await this.$mtypes.getSource('lab.position');
         debug_log("3", src.data)
+
 
         //genemedeAPI.apiGet("version").then((res) => { this.version = res.data; });
         //this.initTagify(this.tag_names);

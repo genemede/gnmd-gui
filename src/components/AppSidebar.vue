@@ -3,8 +3,11 @@
         <template v-if="context == 'data'">
             <h2>Types</h2>
             <div class="wrapper">
-                <template v-for="(itm, idx) in getMTList">
-                    <div class="sbitem" :action="itm" @click.stop="btnClick">{{ itm }}</div>
+                <!-- <RouterLink class="navlink" to="/data/manage">Data</RouterLink> -->
+                <template v-for="mt in $store.mtypes">
+                    <!-- <div class="sbitem" :action="mt.mtype" @click.stop="btnClick">{{ mt.mtype }}</div> -->
+                    <RouterLink class="sblink" :to="'/data/manage/' + mt.mtype">{{ mt.mtype }}</RouterLink>
+
                 </template>
             </div>
             <!-- <div v-if="this.$router.currentRoute.value.name == 'data'">DATA</div> -->

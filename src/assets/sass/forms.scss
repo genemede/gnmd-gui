@@ -25,6 +25,12 @@ textarea {
     width: 100%;
     text-align: left;
     margin-top: 8px;
+    &.no-margin {
+        margin-top: 0px;
+        &:not(:first-child) {
+            margin-top: 0px;
+        }
+    }
 
     &:not(:first-child) {
         margin-top: 4px;
@@ -136,19 +142,6 @@ textarea {
             }
         }
     }
-    &.border {
-        > .control {
-            &.full {
-                border: 1px solid var(--input-border-color);
-            }
-            .v-select {
-                border: 1px solid var(--input-border-color);
-            }
-            .choices {
-                border: 1px solid var(--input-border-color);
-            }
-        }
-    }
     &.small {
         .control {
             .v-select {
@@ -250,6 +243,15 @@ textarea {
     &.padded .control {
         padding: 4px 6px;
     }
+    > .v-select {
+
+        //border-radius: var(--input-border-radius);
+        //border: 1px solid var(--input-border-color);
+        .vs__dropdown-toggle {
+            background-color: var(--input-background-color);
+        }
+    }
+
     .control {
         position: relative;
         width: 100%;
@@ -265,15 +267,8 @@ textarea {
             border-radius: var(--input-border-radius);
             border: 1px solid var(--input-border-color);
         }
-        &.full {
-        }
         &.select-field {
             padding: 4px 4px;
-        }
-        > .v-select {
-            background-color: var(--input-background-color);
-            padding: 4px 12px 4px;
-            border: 1px solid transparent;
         }
         > .choices {
             background-color: var(--input-background-color);
@@ -626,6 +621,62 @@ textarea {
             width: 100%;
             padding: 4px 8px;
             //border: 1px dashed green;
+        }
+    }
+}
+//=======================================
+.module {
+    margin: 16px 0;
+
+    border-radius: var(--input-border-radius);
+    border: 1px solid var(--input-border-color);
+
+    .header {
+        display: flex;
+        background-color: var(--group-background-color);
+        padding: 6px 12px;
+        margin-bottom: 16px;
+        .title {
+            font-weight: bold;
+        }
+        .actions {
+            margin-left: auto;
+            padding-left: 8px;
+            .collapser {
+                cursor: pointer;
+                padding: 1px 4px;
+                display: inline-block;
+                width: 23px;
+                height: 23px;
+                background-color: var(--button-background-color);
+                border-radius: 50%;
+            }
+        }
+        &.sub {
+            //font-size: 14px;
+            background-color: color-mix(in srgb, #fff 35%, var(--group-background-color));
+            padding: 4px 6px;
+            //background-color: transparent;
+            margin-bottom: 8px;
+            .actions {
+                padding-top: 4px;
+            }
+            .input-wrapper {
+                margin-top: 0px;
+                &:not(:first-child) {
+                    margin-top: 0px;
+                }
+            }
+        }
+    }
+    .data-container {
+        padding: 0 8px;
+        .data {
+            padding: 0 8px;
+            margin-bottom: 8px;
+        }
+        &.hidden {
+            display: none;
         }
     }
 }

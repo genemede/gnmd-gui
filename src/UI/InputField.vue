@@ -144,7 +144,7 @@ export default {
             this.$emit('input', upd, event);
         },
         updateInput(event) {
-            console.log('input-update-event')
+            //console.log('input-update-event')
             /*
             if(this.type !== 'currency' && this.type !== 'integer') {
                 this.$emit('input', event.target.value, event);
@@ -153,7 +153,6 @@ export default {
                 this.startCooldown();
             }*/
             this.$emit('update:modelValue', event.target.value);
-
         },
         startCooldown() {
             if (this.cooldownTimeout != null) {
@@ -204,7 +203,7 @@ export default {
         },
         getInputPattern() {
             if (this.type == "currency" || this.type == "integer"  ) return '[0-9. ]*';
-            return false;
+            return null;
         },
         getType() {
             if (this.type == "currency" || this.type == "integer"  ) return 'text';

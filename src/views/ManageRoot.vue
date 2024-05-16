@@ -1,14 +1,11 @@
 <template>
     <div class="middle">
-        <div class="wrapper">
-            <h2>Data Management</h2>
-            <span>Creates, edits and deletes data.</span>
-        </div>
         <RouterView v-slot="{ Component }"></RouterView>
     </div>
 </template>
 
 <script>
+
 export default {
     setup() {
     },

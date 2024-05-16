@@ -7,7 +7,7 @@ import SearchResultItem from '@/components/SearchResultItem.vue'
         <div class="wrapper">
             <h2>Search Page</h2>
             <p>
-                Search on existing data
+                Search existing data
             </p>
         </div>
 
@@ -23,6 +23,7 @@ import SearchResultItem from '@/components/SearchResultItem.vue'
             </InputField>
 
         </div>
+
         <div class="wrapper">
             <DataTable :columns="columns" :options="options" :data="data" class="display nowrap" width="100%" @click='clickDataTable'>
                 <thead>

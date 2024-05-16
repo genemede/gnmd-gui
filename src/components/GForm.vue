@@ -1,7 +1,7 @@
 <template>
     <template v-if="config">
         <!-- <h5>================ {{ config.fields }}</h5> -->
-        <!-- <h5>================ {{ values }}</h5> -->
+        <h5>================ {{ values }}</h5>
         <template v-for="(itm, idx) in config.fields">
             <template v-if="itm.datatype == 'text'">
                 <InputField v-model="values[itm.name]" :title="itm.label" type="text" :help="itm.help" />
@@ -11,10 +11,11 @@
                 <TextField v-model="values[itm.name]" :title="itm.label" type="text" :help="itm.help" />
             </template>
             <template v-else-if="itm.datatype == 'link'">
-                <RelField v-model="values[itm.name]" :title="itm.label" :config="itm.config"></RelField>
+                <!-- <RelField v-model="values[itm.name]" :title="itm.label" :config="itm.config"></RelField> -->
+                <RelFieldEx v-model="values[itm.name]" :title="itm.label" :item="itm"></RelFieldEx>
             </template>
             <template v-else-if="itm.datatype == 'selection'">
-                <SelectField :title="itm.label" v-model="values[itm.name]" :source="itm.sources" :help="itm.help"></SelectField>
+                <SelectField :title="itm.label" v-model="values[itm.name]" :source="itm.sources" :help="itm.help" :joinlabel="true"></SelectField>
             </template>
             <template v-else-if="itm.datatype == 'date'">
                 <InputField v-model="values[itm.name]" :title="itm.label" type="text" :help="itm.help" />
@@ -29,8 +30,6 @@
                 <!-- <div>{{ itm.config }}</div> -->
                 <!-- <GForm :config="itm.config" :values="values[itm.valuekey][0]"/> -->
             </template>
-
-            <!-- <hr> -->
         </template>
 
     </template>

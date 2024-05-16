@@ -11,10 +11,18 @@
             </p>
             <p><br></p>
             <div class="infobar">
-                <span>GAT Status: </span>
+                <span class="">GAT Status: </span>
                 <span class="server-icon" v-if='this.$store.server.status === 0'>Unknown</span>
-                <span class="server-icon" v-if='this.$store.server.status === 1'>Offline</span>
-                <span class="server-icon" v-if='this.$store.server.status === 2'>Online</span>
+                <span class="color-danger" v-if='this.$store.server.status === 1'>Offline</span>
+
+                <template v-if='this.$store.server.status === 2'>
+                    <span class="spaced">Online</span>
+                    <span>(v{{ $store.server.version   }})</span>
+                </template>
+
+                <template v-if='this.$store.server.status === 1'>
+                    <GButton class="small" action="retrygat" @click.stop="btnClick">retry</GButton>
+                </template>
             </div>
             <template v-if="this.$store.server.status === 2">
                 <p>Try creating an instance of one of these metadata descriptors:<br><br>
@@ -38,7 +46,6 @@
              -->
         </div>
         <div class="wrapper">
-
             <HelpBox class='spacer-top' icon>
                 <template v-slot:title>No data is stored here</template>
                 <p>
@@ -47,7 +54,12 @@
                     <a href="https://genemede.github.io/about/" target="_blank">Read more here</a>
                 </p>
             </HelpBox>
+        </div>
 
+        <div class="wrapper">
+            <div class="infobar warning">
+                <p>Genemede is very much still in development phase.</p>
+            </div>
         </div>
 
         <div class="wrapper" v-if="false">
@@ -117,7 +129,19 @@ export default {
         btnClick(evt, btn) {
             var act = btn.action.split(':')
             if (btn) {
+                console.log('act', act, act[0])
                 switch (act[0]) {
+                case 'retrygat':
+                    btn.isWaiting = true;
+                    this.$store.connectToGat()
+                    .then(res => {
+                        btn.isWaiting = false;
+                    })
+                    .catch(err => {
+                        btn.isWaiting = false;
+                    });
+
+                    break;
                 case 'add':
                     router.push('/data/create/' + act[1])
                     break;
