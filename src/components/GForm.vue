@@ -1,27 +1,25 @@
 <template>
     <template v-if="config">
-        <!-- <h5>================ {{ config.fields }}</h5> -->
         <h5>================ {{ values }}</h5>
         <template v-for="(itm, idx) in config.fields">
             <template v-if="itm.datatype == 'text'">
-                <InputField v-model="values[itm.name]" :title="itm.label" type="text" :help="itm.help" />
+                <InputField v-model="values[itm.name]" :title="itm.label" type="text" :help="itm.help" name="itm.name"/>
             </template>
-
             <template v-else-if="itm.datatype == 'longtext'">
-                <TextField v-model="values[itm.name]" :title="itm.label" type="text" :help="itm.help" />
+                <TextField v-model="values[itm.name]" :title="itm.label" type="text" :help="itm.help" name="itm.name"/>
             </template>
             <template v-else-if="itm.datatype == 'link'">
                 <!-- <RelField v-model="values[itm.name]" :title="itm.label" :config="itm.config"></RelField> -->
                 <RelFieldEx v-model="values[itm.name]" :title="itm.label" :item="itm"></RelFieldEx>
             </template>
             <template v-else-if="itm.datatype == 'selection'">
-                <SelectField :title="itm.label" v-model="values[itm.name]" :source="itm.sources" :help="itm.help" :joinlabel="true"></SelectField>
+                <SelectField :title="itm.label" v-model="values[itm.name]" :source="itm.sources" :help="itm.help" :joinlabel="true" name="itm.name"></SelectField>
             </template>
             <template v-else-if="itm.datatype == 'date'">
-                <InputField v-model="values[itm.name]" :title="itm.label" type="text" :help="itm.help" />
+                <InputField v-model="values[itm.name]" :title="itm.label" type="text" :help="itm.help" name="itm.name"/>
             </template>
             <template v-else-if="itm.datatype == 'bool'">
-                <InputField v-model="values[itm.name]" :title="itm.label" type="text" :help="itm.help" />
+                <InputField v-model="values[itm.name]" :title="itm.label" type="text" :help="itm.help" name="itm.name"/>
             </template>
 
             <template v-else-if="itm.datatype == 'module'">

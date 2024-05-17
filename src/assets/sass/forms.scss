@@ -359,7 +359,8 @@ textarea {
                 //text-transform: uppercase;
             }
             &:focus {
-                outline: none; //$color-green solid 1px;
+                outline: color-mix(in srgb, var(--input-background-color), var(--input-border-color) 15%);
+                background-color: color-mix(in srgb, var(--input-background-color), var(--input-border-color) 15%);
             }
             &:disabled {
                 background-color: #fbfbfb;

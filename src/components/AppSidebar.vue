@@ -12,6 +12,9 @@
             </div>
             <!-- <div v-if="this.$router.currentRoute.value.name == 'data'">DATA</div> -->
         </template>
+        <component :is="ctxcomp"></component>
+        <!-- <SBFieldMap>qweqwe</SBFieldMap> -->
+
         <div class="wrapper wireframe">
             <p>context specific sidebar functions</p>
         </div>
@@ -20,10 +23,12 @@
 
 <script>
 import router from '/src/router/router.js'
+import SBFieldMap from '@/components/sidebar/SBFieldMap.vue';
 
 export default {
     name: 'AppSidebar',
     props: {},
+    components: {SBFieldMap},
     data() {
         return {};
     },
@@ -41,6 +46,9 @@ export default {
     mounted() {
     },
     computed: {
+        ctxcomp() {
+            return "SBFieldMap";
+        },
         context() {
             var r = this.$route.path;
             var res = '';

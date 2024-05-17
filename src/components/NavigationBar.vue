@@ -17,7 +17,7 @@
                 <RouterLink class="navlink" :to="{name: 'search'}">Search</RouterLink>
                 <!-- <RouterLink class="navlink" :to="{name: 'explore'}">Explore</RouterLink> -->
                 <RouterLink v-if="this.$store.devMode" class="navlink devlink" :to="{name: 'devpage'}">Dev</RouterLink>
-                <!-- <span>{{ this.$router.currentRoute.value.path }}</span> -->
+                <span>{{ this.$router.currentRoute.value.name }}</span>
             </div>
 
             <div class="user">

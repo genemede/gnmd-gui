@@ -4,8 +4,8 @@
             <h2>{{title}} - {{ curMode }}</h2>
             <!-- <h3>slug: {{ curSlug }}</h3> -->
             <template v-if="obj">
-                <InputField v-model="obj.name" title="Name" type="text" />
-                <InputField v-model="obj.description" title="Description" type="text" />
+                <InputField v-model="obj.name" title="Name" type="text" name="name" />
+                <InputField v-model="obj.description" title="Description" type="text" name="description" />
             </template>
         </div>
         <div class="wrapper">

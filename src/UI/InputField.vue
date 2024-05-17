@@ -13,6 +13,7 @@ defineEmits(['update:modelValue', 'blur', 'click'])
             <slot name="prefix"></slot>
             <!-- data-lpignore="true" -->
             <input class="input"
+                :name="getName"
                 :value="modelValue"
                 @input="updateInput"
 
@@ -49,6 +50,7 @@ export default {
         placeholder: String,
         type: String,
         help: String,
+        name: String,
         cooldown: {
             required: false,
             type: Number,
@@ -194,6 +196,10 @@ export default {
         }
     },
     computed: {
+        getName() {
+            if (this.name) return this.name;
+            return null;
+        },
         curValue() {
             return this.value;
         },

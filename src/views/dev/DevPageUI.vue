@@ -6,6 +6,10 @@
             <hr>
         </div>
         <div class="wrapper">
+            <GSwitch v-model="switchvalue" :sync='false' :labels="{checked: 'yes!', unchecked:'no!'}"></GSwitch>
+            <span>Switch: {{ switchvalue }}</span>
+            <!-- <gtst name="gtst" v-model="switchvalue" >Switch</gtst> -->
+            <hr>
             <div class="input-wrapper rounded" name="tsttoggle">
                 <div>{{ togvalues }}</div>
                 <label class="label is-required">Toggle</label>
@@ -148,6 +152,7 @@ export default {
     },
     data () {
         return {
+            switchvalue: true,
             datepick_a: null,
             datepick_b: null,
             version: '',

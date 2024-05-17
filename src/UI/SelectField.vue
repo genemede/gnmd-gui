@@ -15,6 +15,7 @@ defineEmits(['update:modelValue', 'blur', 'click'])
         -->
 
         <vSelect
+            :name="name"
             @input="onInput"
             ref="selfld" @search:focus="onfcs" @open="onOpen"
             :autoscroll="true" v-model="selvalue" label="value"
@@ -31,9 +32,8 @@ defineEmits(['update:modelValue', 'blur', 'click'])
     </div>
 </template>
 <script>
-import Multiselect from 'vue-multiselect'
+//import Multiselect from 'vue-multiselect'
 import vSelect from 'vue-select'
-
 import { ref, nextTick } from 'vue'
 
 export default {
@@ -46,10 +46,13 @@ export default {
         config: Object,
         help: String,
         helperror: Boolean,
+        name: null,
         source: null,
         options: null,
-        joinlabel: false
+        joinlabel: false,
+        tag: null
     },
+    expose: ["focus"],
     data () {
         return {
             oneshot: true,
@@ -61,7 +64,7 @@ export default {
     },
     name: 'SelectField',
     components: {
-        Multiselect,
+        //Multiselect,
         vSelect
     },
     async mounted() {
@@ -98,18 +101,22 @@ export default {
                 });
             }
         },
+        focus() {
+            //console.log("REF", this.$refs.selfld[0]);
+            this.$refs.selfld[0].focus();
+        },
         onChange(value) {
             var s = value;
             if (this.joinlabel) {
                 for (var i in this.intOptions) {
-                    console.log('I is', this.intOptions[i])
+                    //console.log('I is', this.intOptions[i])
                     if (this.intOptions[i].code == s) {
                         s = s + "|" + this.intOptions[i].value;
                         break;
                     }
                 }
             }
-            this.$emit('update:modelValue', s);
+            this.$emit('update:modelValue', s, this.tag);
         }
     },
     watch: {
@@ -148,6 +155,3 @@ export default {
     }
 }
 </script>
-
-
-<!-- <style src="vue-multiselect/dist/vue-multiselect.css"></style> -->

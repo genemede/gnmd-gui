@@ -17,6 +17,7 @@ import SelectField from './UI/SelectField.vue'
 import DateField from './UI/DateField.vue'
 
 import GToggle from './UI/GToggle.vue'
+import GSwitch from './UI/GSwitch.vue'
 import HelpBox from './UI/HelpBox.vue'
 
 import ConfirmDialog from '@/components/dlg/ConfirmDialog.vue'
@@ -41,6 +42,7 @@ app.component('TextField', TextField);
 app.component('SelectField', SelectField);
 app.component('DateField', DateField);
 app.component('GToggle', GToggle);
+app.component('GSwitch', GSwitch);
 app.component('HelpBox', HelpBox);
 
 // dialogs

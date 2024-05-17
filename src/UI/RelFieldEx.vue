@@ -9,18 +9,28 @@
                     <GButton class="small" action="add" @click.stop="btnClick">add</GButton>
                 </span>
             </div>
-            <div class="data-container">
-                <template v-for="(itm, idx) in modelValue">
-                    <div class="header sub linkfield">
+            <div class="data-container" ref="dc">
+                <template v-for="(itm, idx) in modelValue" v-if="ready">
+                    <div class="header sub linkfield" ref="headers">
                         <!-- <span class="title">{{ (idx + 1) }} / {{ values.length }}</span> -->
-                        <SelectField  v-model="modelValue[idx].to" :source="linkSource" :codeonly="true"></SelectField>
+
+                        <SelectField
+                            v-model="modelValue[idx].to"
+
+                            :name="'sf'"
+                            :options="linksources"
+                            :codeonly="true"
+                            :tag="idx"
+                            ref="flds"
+                            @update:modelValue="onChange">
+                        </SelectField>
+
                         <span class="actions">
                             <GButton class="small warning" action="delete" :data-item="idx" @click.stop="btnClick">delete</GButton>
                         </span>
                     </div>
-                    <div class="data">
+                    <div class="data" ref="data">
                         <template v-if="item">
-                            <!-- <SelectField  v-model="modelValue[idx].to" :source="linkSource" :codeonly="true"></SelectField> -->
                             <GForm :config="item.config" :values="modelValue[idx].properties"/>
                         </template>
                     </div>
@@ -31,7 +41,7 @@
 </template>
 
 <script>
-import genemedeAPI from '@/services/gnmd-api.js';
+import { ref, nextTick } from 'vue'
 
 export default {
     props: {
@@ -42,8 +52,6 @@ export default {
 
         fields: Object,
         item: Object,
-
-
     },
     emits: {
     },
@@ -51,30 +59,37 @@ export default {
     data () {
         return {
             formVisible: false,
-            linksources: null
+            linksources: null,
+            ready: false
         }
     },
     name: 'RelFieldEx',
     async mounted() {
-        /*
+        // sources for all links is kept here on parent instead of duplicating on each child
         if (this.item) {
-            await genemedeAPI.apiGet("data/" + this.item.sources).then((res) => {
-                var tmp = []
-                this.linksources = res.data.data;
-            });
+            if (this.item.sources != null) {
+                var src = await this.$mtypes.getSource('data:' + this.item.sources);
+                this.linksources = src.data.data.codes;
+            }
         }
-        console.log("LINK SRC", this.linksources)
-        */
+        nextTick(() => { this.ready = true; });
     },
     methods: {
+        onChange(value, tag) {
+            // 'to' field changed, need to reflect label on object
+            for (var key in this.linksources) {
+                if (this.linksources[key].code == value) {
+                    this.modelValue[tag].label = this.linksources[key].value
+                }
+            }
+        },
         async btnClick(evt, btn) {
             if (btn) {
                 switch (btn.action) {
                 case "add":
-                    //console.log("flds", this.item)
                     var obj = {
                         to: null,
-                        mtype: null,
+                        mtype: this.item.sources,
                         label: null,
                         properties: {}
                     }
@@ -84,9 +99,13 @@ export default {
                             obj.properties[cur.name] = ""
                         }
                     }
-                    console.log("mv", this.modelValue)
-                    console.log("obj", obj)
+                    const len = this.modelValue.length;
                     this.modelValue.push(obj)
+                    nextTick(() => {
+                        const header = this.$refs.headers[len]
+                        header.childNodes[1].querySelector("input").focus();
+                        this.$refs.data[len].scrollIntoView( { behavior: 'smooth', block: 'end', inline: 'start' } );
+                    });
                     break;
                 case "edit":
                     //debug_log("BTN", btn.dataset)
@@ -94,12 +113,9 @@ export default {
                     break;
                 case "delete":
                     var itmidx = evt.target.dataset.item;
-                    //console.log("delete index", itmidx)
                     var ok = await this.$dlg.confirm('Confirmation','Delete this link ?', {okText: 'Yes', cancelText: 'No'});
                     if (ok) {
-                        //console.log("A", JSON.stringify(this.modelValue))
                         this.modelValue.splice(itmidx, 1)
-                        //console.log("B", JSON.stringify(this.modelValue))
                     }
                     break;
                 }
@@ -113,17 +129,14 @@ export default {
     },
     computed: {
         hasData() {
-            return this.modelValue != null && this.modelValue.length > 0;
+            //return this.modelValue != null && this.modelValue.length > 0;
+            return this.modelValue != null;
         },
         describeGroupCount() {
             var c = this.modelValue.length;
             if (c == 0) return "empty";
             if (c == 1) return "1 link";
             if (c > 1) return c + " links";
-        },
-        linkSource() {
-            var res = 'data:' + this.item.sources;
-            return res;
         },
         entries() {
             var c = 0;
