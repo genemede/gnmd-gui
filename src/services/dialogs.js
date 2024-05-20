@@ -77,7 +77,7 @@ const DialogsService = {
     // main function for showing dialogs
     showDialog(dlgName, dlgData, dlgOptions = null) {
         // testing if we can keep dlgData observed by vue
-        debug_log('showdialog', dlgName)
+        //debug_log('showdialog', dlgName)
         let dlg = this.intFindDialog(dlgName);
         let data;
         let opts = dlg ? dlg.options : {};
@@ -90,7 +90,7 @@ const DialogsService = {
             if (dlg && dlg.arguments.length == dlgData.length) {
                 data = {};
                 for (let i = 0; i < dlgData.length; i += 1) {
-                    console.log('SHOW DIALOG bb', dlg.arguments[i], i);
+                    //console.log('SHOW DIALOG bb', dlg.arguments[i], i);
                     data[dlg.arguments[i]] = dlgData[i];
                 }
             } else {

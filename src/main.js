@@ -5,6 +5,7 @@ import App from './App.vue'
 const pinia = createPinia()
 
 import router from './router/router.js'
+import genemedeAPI from '@/services/gnmd-api.js';
 import Notifications from '@kyvg/vue3-notification'
 
 const app = createApp(App)
@@ -26,6 +27,7 @@ import InformDialog from '@/components/dlg/InformDialog.vue'
 import DataGrid from '@/components/DataGrid.vue'
 import GForm from '@/components/GForm.vue'
 import GModule from '@/components/GModule.vue'
+import DevPanel from '@/components/DevPanel.vue'
 
 import helpers from './services/helpers';
 import storage from './services/storage';
@@ -53,6 +55,7 @@ app.component('InformDialog', InformDialog);
 app.component('DataGrid', DataGrid);
 app.component('GForm', GForm);
 app.component('GModule', GModule);
+app.component('DevPanel', DevPanel);
 
 app.use(pinia);
 app.use(router);
@@ -66,6 +69,7 @@ app.config.globalProperties.$storage = storage;
 app.config.globalProperties.$mtypes = GlobalMTypes;
 app.config.globalProperties.$dlg = dialogs;
 app.config.globalProperties.$router = router;
+app.config.globalProperties.$api = genemedeAPI;
 
 app.mount('#app');
 

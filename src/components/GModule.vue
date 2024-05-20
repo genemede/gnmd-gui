@@ -1,9 +1,12 @@
 <template>
     <template v-if="item">
-        <div class="module">
+        <div class="module spacer-bottom">
             <!-- <div>{{ item }}</div> -->
-            <div class="header">
+            <div class="header spacer-bottom">
                 <span class="title">Module: {{ item.name }}</span>
+
+                <span>alt: {{ altered }}</span>
+
                 <span class="actions">
                     <span>{{ describeGroupCount }}</span>
                     <GButton class="small" action="add" @click.stop="btnClick" v-if="item.repeatable" >add</GButton>
@@ -23,7 +26,7 @@
                         </span>
                     </div>
                     <div class="data">
-                        <GForm :config="item.config" :values="values[idx]"/>
+                        <GForm :config="item.config" :values="values[idx]" @change="onFormChange"/>
                     </div>
                 </template>
             </div>
@@ -42,9 +45,11 @@ export default {
         item: Object,
         values: Object
     },
+    emits: ['change'],
     data() {
         return {
-            hidden: false
+            hidden: false,
+            altered: false
         }
     },
     methods: {
@@ -69,6 +74,10 @@ export default {
                     break
                 }
             }
+        },
+        onFormChange(obj) {
+            this.altered = true;
+            this.$emit('change', this);
         }
     },
     computed: {

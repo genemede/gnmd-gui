@@ -5,7 +5,8 @@ defineEmits(['update:modelValue', 'blur', 'click'])
 <template>
     <div class="input-wrapper padded">
         <label class="label" v-html="title" :class="labelClass"></label>
-        <VueDatePicker v-model="datevalue"></VueDatePicker>
+        <div>XXX: {{curValue }}</div>
+        <VueDatePicker v-model="curValue" utc :formatxx="format" @change="onChange" model-type="iso" />
         <div class="error-message" :class="errClass">{{errorMessage}}</div>
         <div class="input-help-text">{{help}}</div>
     </div>
@@ -13,6 +14,15 @@ defineEmits(['update:modelValue', 'blur', 'click'])
 <script>
 import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css'
+
+const format = (date) => {
+    console.log(typeof date)
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+
+    return `${year}/${month}/${day} `;
+}
 
 export default {
     props: {
@@ -25,14 +35,13 @@ export default {
         help: String,
         helperror: Boolean,
         source: null,
-        options: null
+        options: null,
     },
     data () {
         return {
             hasError: false,
             errorMessage: '',
-            intOptions: [],
-            datevalue: null,
+            curValue: null
         }
     },
     name: 'DateField',
@@ -40,10 +49,13 @@ export default {
         VueDatePicker
     },
     async mounted() {
+        console.log("MMM", typeof this.modelValue)
+        console.log("VVV", this.modelValue)
     },
     methods: {
         onChange(value) {
-
+            console.log("change", value)
+            this.$emit('update:modelValue', value);
         }
     },
     computed: {
@@ -65,6 +77,15 @@ export default {
             var res = '';
             return res;
         }
-    }
+    },
+    watch: {
+        modelValue(newVal, oldVal) {
+            console.log('MVOLD', oldVal, 'MVNEW', newVal)
+            if (newVal != this.curValue) {
+                console.log("MMM", typeof newVal)
+                this.curValue = newVal
+            }
+        },
+    },
 }
 </script>

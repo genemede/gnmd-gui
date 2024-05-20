@@ -1,5 +1,5 @@
 <script setup>
-defineEmits(['update:modelValue', 'blur', 'click'])
+defineEmits(['update:modelValue', 'blur', 'click', 'change'])
 </script>
 
 <template>
@@ -54,8 +54,9 @@ export default {
     },
     methods: {
         updateInput(event) {
-            console.log('update textfield')
+            //console.log('update textfield')
             this.$emit('update:modelValue', event.target.value);
+            this.$emit('change', this);
         },
         flashError(msg) {
             this.hasError = true;

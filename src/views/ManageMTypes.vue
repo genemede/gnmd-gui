@@ -150,13 +150,3 @@ export default {
     components: { DataTable, VueMultiselect }
 }
 </script>
-
-
-<style>
-@import 'datatables.net-dt';
-@import 'datatables.net-buttons-dt';
-@import 'datatables.net-responsive-dt';
-@import 'datatables.net-select-dt';
-</style>
-<style src="vue-multiselect/dist/vue-multiselect.css"></style>
-

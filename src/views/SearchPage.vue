@@ -134,7 +134,6 @@ export default {
         },
         async execSearch() {
             genemedeAPI.apiGet("search?q=" + this.filterTmp).then((res) => {
-                debug_log('result', res.data)
                 this.data = res.data.data
             });
 
@@ -156,11 +155,3 @@ export default {
     }
 }
 </script>
-
-<style>
-@import 'datatables.net-dt';
-@import 'datatables.net-buttons-dt';
-@import 'datatables.net-responsive-dt';
-@import 'datatables.net-select-dt';
-</style>
-

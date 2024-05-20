@@ -13,18 +13,19 @@
             <div class="infobar">
                 <span class="">GAT Status: </span>
                 <span class="server-icon" v-if='this.$store.server.status === 0'>Unknown</span>
-                <span class="color-danger" v-if='this.$store.server.status === 1'>Offline</span>
+                <span class="" v-if='this.$store.server.status === 1'>Connecting</span>
+                <span class="color-danger" v-if='this.$store.server.status === 2'>Offline</span>
 
-                <template v-if='this.$store.server.status === 2'>
+                <template v-if='this.$store.server.status === 3'>
                     <span class="spaced">Online</span>
                     <span>(v{{ $store.server.version   }})</span>
                 </template>
 
-                <template v-if='this.$store.server.status === 1'>
+                <template v-if='this.$store.server.status === 2'>
                     <GButton class="small" action="retrygat" @click.stop="btnClick">retry</GButton>
                 </template>
             </div>
-            <template v-if="this.$store.server.status === 2">
+            <template v-if="this.$store.server.status === 3">
                 <p>Try creating an instance of one of these metadata descriptors:<br><br>
 
                 <template v-for="mt in $store.mtypes">

@@ -1,6 +1,6 @@
 <template>
     <template v-if="hasData">
-        <div class="module">
+        <div class="module spacer-bottom">
             <div class="header">
                 <span class="title" v-html="title"></span>
 
@@ -31,7 +31,7 @@
                     </div>
                     <div class="data" ref="data">
                         <template v-if="item">
-                            <GForm :config="item.config" :values="modelValue[idx].properties"/>
+                            <GForm :config="item.config" :values="modelValue[idx].properties" @change="onFormChange"/>
                         </template>
                     </div>
                 </template>
@@ -53,14 +53,14 @@ export default {
         fields: Object,
         item: Object,
     },
-    emits: {
-    },
+    emits: ['change'],
     components: { },
     data () {
         return {
             formVisible: false,
             linksources: null,
-            ready: false
+            ready: false,
+            altered: false
         }
     },
     name: 'RelFieldEx',
@@ -77,11 +77,17 @@ export default {
     methods: {
         onChange(value, tag) {
             // 'to' field changed, need to reflect label on object
+            this.altered = true;
             for (var key in this.linksources) {
                 if (this.linksources[key].code == value) {
                     this.modelValue[tag].label = this.linksources[key].value
                 }
             }
+            this.$emit('change', this);
+        },
+        onFormChange(obj) {
+            this.altered = true;
+            this.$emit('change', this);
         },
         async btnClick(evt, btn) {
             if (btn) {
@@ -116,6 +122,7 @@ export default {
                     var ok = await this.$dlg.confirm('Confirmation','Delete this link ?', {okText: 'Yes', cancelText: 'No'});
                     if (ok) {
                         this.modelValue.splice(itmidx, 1)
+                        this.$emit('change', this);
                     }
                     break;
                 }

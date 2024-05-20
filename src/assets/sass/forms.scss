@@ -231,6 +231,7 @@ textarea {
         text-align: right;
         margin-right: 8px;
         white-space: nowrap;
+        min-height: 12px;
         &.has-error {
             color: var(--color-error);
         }
@@ -627,10 +628,11 @@ textarea {
 }
 //=======================================
 .module {
-    margin: 16px 0;
+    //margin: 16px 0;
 
     border-radius: var(--input-border-radius);
     border: 1px solid var(--input-border-color);
+    //padding-bottom: 8px;
 
     .header {
         display: flex;
@@ -670,8 +672,29 @@ textarea {
             }
         }
     }
+    .footer {
+        display: flex;
+        padding: 6px 12px;
+        .title {
+            font-weight: bold;
+        }
+        .actions {
+            margin-left: auto;
+            padding-left: 8px;
+            .collapser {
+                cursor: pointer;
+                padding: 1px 4px;
+                display: inline-block;
+                width: 23px;
+                height: 23px;
+                background-color: var(--button-background-color);
+                border-radius: 50%;
+            }
+        }
+
+    }
     .data-container {
-        padding: 0 8px;
+        padding: 0 12px;
         .data {
             padding: 0 8px;
             margin-bottom: 8px;

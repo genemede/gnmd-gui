@@ -1,7 +1,3 @@
-<script setup>
-defineEmits(['update:modelValue', 'blur', 'click'])
-</script>
-
 <template>
     <div class="input-wrapper">
         <!-- <div>MV {{ modelValue }} / SV {{ selvalue }}</div> -->
@@ -53,6 +49,7 @@ export default {
         tag: null
     },
     expose: ["focus"],
+    emits: ['update:modelValue', 'blur', 'click', 'change'],
     data () {
         return {
             oneshot: true,
@@ -60,6 +57,7 @@ export default {
             errorMessage: '',
             intOptions: [],
             selvalue: null,
+            altered: false
         }
     },
     name: 'SelectField',
@@ -117,6 +115,7 @@ export default {
                 }
             }
             this.$emit('update:modelValue', s, this.tag);
+            this.$emit('change', this);
         }
     },
     watch: {
@@ -128,6 +127,8 @@ export default {
             if (newVal != this.selvalue) {
                 this.selvalue = newVal
             }
+            this.altered = true;
+            this.$emit('change', this);
         },
     },
     computed: {

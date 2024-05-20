@@ -39,7 +39,8 @@
             <AppSidebar />
         </div>
         <div class="main-container" ref="maincontainer" id="mc">
-                <RouterView v-slot="{ Component }">
+            <div class="corner"><div></div></div>
+            <RouterView v-slot="{ Component }">
                 <keep-alive include="ManageMTypes,SearchPage,ExplorePage,HomeView">
                     <component :is="Component" :key="$route.path"/>
                 </keep-alive>
@@ -65,6 +66,15 @@ import mtypes from '@/services/mtypes.js';
 
 var dlgPromiseResolve;
 var globalTickIntervalHandler;
+
+function hsl2rgb(h,s,l)
+{
+  let a= s*Math.min(l,1-l);
+  let f= (n,k=(n+h/30)%12) => l - a*Math.max(Math.min(k-3,9-k,1),-1);
+  return [f(0),f(8),f(4)];
+}
+
+let rgb2hex = (r,g,b) => "#" + [r,g,b].map(x=>Math.round(x*255).toString(16).padStart(2,0) ).join('');
 
 export default {
     name: "App",
@@ -153,6 +163,30 @@ export default {
         },
         dlgCancelEvent() {
             this.intCancelDlg();
+        },
+        setupMTypeColors() {
+            var s, c, c1, c2 ,c3;
+            var hue = 80;
+            var h = '';
+            var style = document.createElement('style');
+            this.$store.mtypes.forEach(m => {
+                s = `hsl(${hue},${0.78},${0.85})`;
+                c = w3color(s);
+                hue += 40;
+                if (hue> 360) { hue -= 360}
+
+                var c1 = c.toHexString();
+                var c2 = this.$helpers.shadeColor(c1, -10);
+                var c3 = this.$helpers.shadeColor(c1, -15);
+
+                h = h + `.cls-mt-${m.mtype} { background-color: ${c1}; border: 1px solid ${c2}; }
+            .module.cls-mt-${m.mtype} .header {
+                    background-color: ${c2};
+                    border-bottom: 1px solid ${c3};
+                }`
+            });
+            style.innerHTML = h;
+            document.head.appendChild(style);
         }
     },
     computed: {
@@ -175,23 +209,25 @@ export default {
     beforeDestroy() {
         window.removeEventListener('keydown', this.onKeyDown);
     },
-    mounted() {
-        this.$store.connectToGat()
+    async mounted() {
+        await this.$store.connectToGat()
         this.$dlg.setApp(this);
-        // prepare mtypes colors
 
+        // prepare mtypes colors
+        this.setupMTypeColors();
+        /*
         var mt = [
             {   mtype: "lab",
-                colors: ['#ffc6ff']
+                colors: ['#90F1EE']
             },
             {   mtype: "project",
-                colors: ['#bdb2ff']
+                colors: ['#90F1BA']
             },
             {   mtype: "researcher",
-                colors: ['#a0c4ff']
+                colors: ['#ACF190']
             },
             {   mtype: "subject",
-                colors: ['#9bf6ff']
+                colors: ['#DCF190']
             },
             {   mtype: "protocol",
                 colors: ['#caffbf']
@@ -200,12 +236,6 @@ export default {
                 colors: ['#fdffb6']
             }
         ];
-        /*
-        #caffbf
-        #fdffb6
-        #ffd6a5
-        #ffadad
-        */
 
         var h = '';
         var style = document.createElement('style');
@@ -214,17 +244,15 @@ export default {
             var c2 = this.$helpers.shadeColor(c1, -10);
             var c3 = this.$helpers.shadeColor(c1, -15);
             m.colors[0];
-            h = h + `.cls-mt-${m.mtype} {
-                background-color: ${c1};
-                border: 1px solid ${c2};
-                .tdtitle {
+            h = h + `.cls-mt-${m.mtype} { background-color: ${c1}; border: 1px solid ${c2}; }
+            .module.cls-mt-${m.mtype} .header {
                     background-color: ${c2};
                     border-bottom: 1px solid ${c3};
-                }
-            }`
+                }`
         });
         style.innerHTML = h;
         document.head.appendChild(style);
+        */
 
         /*
 

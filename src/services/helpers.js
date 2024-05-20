@@ -12,6 +12,8 @@ window.debug_group_end = function(name) {
     if (import.meta.env.VITE_APP_ENV != 'production') console.groupEnd();
 };
 
+//import('@src/w3color.js').then(mod => {})
+
 const GlobalHelpers = {
     html_button(action, text, btnclass = '') {
         return `<button action="${action}" data-action="${action}" type="button" class="button ${btnclass}"><span class="btn-text">${text}</span></button>`;
@@ -42,8 +44,21 @@ const GlobalHelpers = {
     },
     sortobject(o) {
         return Object.keys(o).sort().reduce( (obj, key) => { obj[key] = o[key]; return obj; }, {});
-    }
+    },
+    async sha256(message) {
+        // encode as UTF-8
+        const msgBuffer = new TextEncoder().encode(message);
 
+        // hash the message
+        const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+
+        // convert ArrayBuffer to Array
+        const hashArray = Array.from(new Uint8Array(hashBuffer));
+
+        // convert bytes to hex string
+        const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+        return hashHex;
+    }
 }
 
 export default GlobalHelpers;

@@ -1,15 +1,16 @@
 <template>
-  <div class="about">
-    <h1>This is an about page</h1>
-  </div>
-</template>
+    <div class="middle">
+        <div class="wrapper">
+            <h2>About Genemede</h2>
+            <p>
+                GENEMEDE is a generic metadata framework that may be used to comprehensively describe a neuroscience experiment.
+            </p>
+            <p>
+                It comes with a variety of descriptors tailored to solving specific problems on the field of neuroscience,
+                but it's designed to allow for any configuration needed.
+            </p>
+            <p><br></p>
+        </div>
+    </div>
 
-<style>
-@media (min-width: 1024px) {
-  .about {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-  }
-}
-</style>
+</template>

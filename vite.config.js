@@ -9,6 +9,13 @@ export default defineConfig(async({ command, mode }) => {
     var appenv = env.VITE_APP_ENV
     var baseurl = env.BASE_URL
 
+    // add version file to allow gat to query version
+    var appver = env.VITE_APP_VERSION;
+    var fs = require('fs');
+    fs.writeFile('public/version', appver, (arg) => {
+        //console.log('arg', arg);
+    });
+
     // to bypass problem with gh workflow and npm/vite failing to correctly select ghpages env
     // we manually override it here
     if (appenv == "ghpages") {

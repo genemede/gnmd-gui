@@ -1,10 +1,10 @@
 <script setup>
-defineEmits(['update:modelValue', 'blur', 'click'])
+defineEmits(['update:modelValue', 'blur', 'click', 'change'])
 </script>
 
 <template>
     <div class="input-wrapper padded flex" :class="{invalid: isInvalid, currency: type =='currency'}">
-        <label class="label" v-html="title" :class="labelClass" v-if='title' />
+        <label class="label" v-html="title" :class="labelClass" v-if='title' @click="onLabelClick"/>
         <div class="control" :class="ctrlClass">
             <span class='cooldown active' v-if='cooldownTimeout != null'><div /></span>
             <span class="icon is-small is-left" v-if="lefticon">
@@ -34,7 +34,7 @@ defineEmits(['update:modelValue', 'blur', 'click'])
             </span>
             <div class="error-message" :class="errClass">{{errorMessage}}</div>
         </div>
-        <div style='flex-basis: 100%; height: 0'></div>
+        <!-- <div style='flex-basis: 100%; height: 0'></div> -->
         <div class="input-help-text" :class="{'has-error': helperror}">{{help}}</div>
     </div>
 </template>
@@ -91,8 +91,10 @@ export default {
             cleave: null,
             isInvalid: false,
             cooldownTimeout: null,
+            altered: false
         }
     },
+    expose: ["isAltered"],
     name: 'InputField',
     mounted() {
         if (this.type === 'password') {
@@ -124,6 +126,12 @@ export default {
         }
     },
     methods: {
+        onLabelClick() {
+            //this.flashError("this is the error message")
+        },
+        testfunc() {
+            return "test value";
+        },
         test() {
             this.error = "test error";
         },
@@ -189,13 +197,18 @@ export default {
         }
     },
     watch:{
-        value (val) {
+        modelValue(newval, oldval) {
             if(this.cleave) {
                 this.cleave.setRawValue(val || 0);
             }
+            this.altered = true;
+            this.$emit('change', this);
         }
     },
     computed: {
+        isAltered() {
+            return this.altered;
+        },
         getName() {
             if (this.name) return this.name;
             return null;

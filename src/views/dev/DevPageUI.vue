@@ -6,9 +6,8 @@
             <hr>
         </div>
         <div class="wrapper">
-            <GSwitch v-model="switchvalue" :sync='false' :labels="{checked: 'yes!', unchecked:'no!'}"></GSwitch>
+            <GSwitch v-model="switchvalue"></GSwitch>
             <span>Switch: {{ switchvalue }}</span>
-            <!-- <gtst name="gtst" v-model="switchvalue" >Switch</gtst> -->
             <hr>
             <div class="input-wrapper rounded" name="tsttoggle">
                 <div>{{ togvalues }}</div>
@@ -19,27 +18,14 @@
             </div>
         </div>
 
-        <vSelect label="value" :options="seloptions"></vSelect>
-
-        <div class="wrapper" v-if="false">
-            <multiselect v-model="selvalue_a" :options="seloptions" track-by="code" label="value"></multiselect>
-            <div>{{ selvalue_a }}</div>
-            <hr>
-
-            <SelectField title="Select from options" v-model="selvalue_b" :options="seloptions"></SelectField>
-            <div>{{ selvalue_b }}</div>
-            <hr>
-        </div>
         <div class="wrapper">
-            <SelectField title="Select from source" v-model="selvalue_c" source="iso639-1" help="List of languages"></SelectField>
-            <div>this value: {{ selvalue_c }}</div>
+            <DateField v-model="datepickvalue" />
+            <div>this value: {{ datepickvalue }}</div>
             <hr>
-            <VueDatePicker v-model="datepick_a"></VueDatePicker>
-            <div>this value: {{ datepick_a }}</div>
-
-            <hr>
-            <DateField v-model="datepick_b" />
-            <div>this value: {{ datepick_b }}</div>
+            <InputField v-model="txtfield" title="test field" type="text" ref="inputfield"/>
+            <span>txt: {{ txtfield }}</span>
+            <span>{{ this.$refs.inputfield }}</span>
+            <GButton class="" action="tst" @click.stop="btnClick">tst</GButton>
         </div>
         <div class="wrapper">
             <GButton class="" action="dlgconfirm" @click.stop="btnClick">dlgconfirm</GButton>
@@ -153,65 +139,29 @@ export default {
     data () {
         return {
             switchvalue: true,
-            datepick_a: null,
-            datepick_b: null,
+            datepickvalue: null,
             version: '',
-            mtypelist: [],
-            mtypes: null,
-            curmtype: null,
-            datalist: [],
-            curdata: null,
-            tst1: 'value',
-            tst2: '',
-            tst3: '',
-            rels1: [
-                {'guid': '1a444dd8-ccf5-4aef-9563-d7a48a63d1ad', 'mtype': 'researcher', 'label': 'Katarina Bendtz'},
-                {'guid': '3fc27d71-d7e1-47b7-a3bd-9482731eb697', 'mtype': 'researcher', 'label': 'Simon Henin'},
-                {'guid': '496701c1-c134-4012-bcdd-5b9bbfcfe6c4', 'mtype': 'researcher', 'label': 'Rony Hirschhorn'},
-                {'guid': '1d8439de-c764-449b-bec4-0869a69fa1aa', 'mtype': 'researcher', 'label': 'Ole Jensen'},
-                {'guid': '2836bdf3-2c80-455e-93d7-8387885cc368', 'mtype': 'researcher', 'label': 'Aya Khalaf'},
-            ],
-            rels2: [],
             tag_names: ['a', 'b', 'c'],
             tgInput: null,
             tgTagify: null,
             tgController: null,
+            txtfield: 'text content',
 
             togvalues: [
                 {on: false, title: 'First option', type: 'one'},
                 {on: false, title: 'Second option', type: 'two'}
             ],
-
-            selvalue_a: null,
-            selvalue_b: null,
-            selvalue_c: "pt|Portuguese",
-            seloptions: [
-                {"code": "principal_investigator", "value": "Principal Investigator"},
-                {"code": "aaa", "value": "AAAAAAAAAAAAAAAA"},
-                {"code": "bbb", "value": "BBBBBBBBBBBBBBB"},
-                {"code": "ccc", "value": "CCCCCCCCCCCCCCCCC"},
-                {"code": "ddd", "value": "DDDDDDDDDDDDDDDDDDDDDDDD"},
-            ]
-
         }
     },
     components: {
         GForm,
-        Multiselect,
         VueDatePicker,
         vSelect
     },
     async mounted() {
-        console.log('mounted', this.$refs, this.$refs.btn1)
-        this.$refs.btn1.isWaiting = true;
-        this.$refs.btn1small.isWaiting = true;
-
-        var src = await this.$mtypes.getSource('lab.position');
-        debug_log("3", src.data)
-
-
-        //genemedeAPI.apiGet("version").then((res) => { this.version = res.data; });
-        //this.initTagify(this.tag_names);
+       //this.datepickvalue = "2024-01-04T05:34:00.000Z"
+        //this.datepickvalue = Date.now()
+        this.datepickvalue = new Date(1950, 3, 15, 10, 30, 15, 300)
     },
     methods: {
         async btnClick(evt, btn) {
@@ -221,36 +171,9 @@ export default {
             this.$dlg.test()
 
             switch (btn.action) {
-                case 'post':
-                    var body = {
-                        "mtype": "researcher",
-                        "guid": "xxxxxxxxxxxx-ebd1-411d-aac9-1a4ef0c84db0",
-                        "modified_at": "2023-11-22T12:26:27.766769",
-                        "name": "Test Researcher A",
-                        "description": "A researcher",
-                        "properties": {
-                            "subject_fields": "Test subject fields"
-                        }
-                    }
-                    genemedeAPI.apiPostEx('data', body, 'post').then((res) => {
-                        console.log("post data: ", res.data, res.data.result);
-                    });
-                    break
-                case 'put':
-                    var g = "xxxxxxxxxxxx-ebd1-411d-aac9-1a4ef0c84db0"
-                    var body = {
-                        "mtype": "researcher",
-                        "guid": g,
-                        "name": "Test Researcher Altered",
-                        "description": "Changed",
-                        "properties": {
-                            "subject_fields": "Changed test subject fields"
-                        }
-                    }
-                    genemedeAPI.apiPostEx('data/' + g, body, 'put').then((res) => {
-                        console.log("put data: ", res.data, res.data.result);
-                    });
-                    break
+                case 'tst':
+                    console.log('ref', this.$refs.inputfield.isAltered);
+                    break;
                 case 'dlgconfirm':
                     var res = await this.$dlg.confirm('Confirmation','Do you want to proceed ?');
                     console.log('RES', res);

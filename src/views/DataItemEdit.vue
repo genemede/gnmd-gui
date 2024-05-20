@@ -1,11 +1,17 @@
 <template>
-    <div class="middle">
+    <div class="middle" v-if="$store.server.status == 3">
         <div class="wrapper">
             <h2>{{title}} - {{ curMode }}</h2>
+            <DevPanel v-if="this.$store.devInfo">
+                <div style="font-size: 10px">{{ obj }}</div>
+                <hr>
+                <h5>altered: {{ altered }}</h5>
+            </DevPanel>
+
             <!-- <h3>slug: {{ curSlug }}</h3> -->
             <template v-if="obj">
-                <InputField v-model="obj.name" title="Name" type="text" name="name" />
-                <InputField v-model="obj.description" title="Description" type="text" name="description" />
+                <InputField v-model="obj.name" title="Name" type="text" name="name" @change="onFormChange"/>
+                <InputField v-model="obj.description" title="Description" type="text" name="description" @change="onFormChange"/>
             </template>
         </div>
         <div class="wrapper">
@@ -19,29 +25,20 @@
                 <div class="input-help-text">Searchable list of tags</div>
             </div>
             <!-- <div class="group-title"><span>Properties</span></div> -->
-
-
-
-            <template v-if="true">
-                <!-- <div style="font-size: 10px">{{ frm.config.values }}</div> -->
-                <!-- <hr> -->
-                <div style="font-size: 10px">{{ obj }}</div>
-            </template>
-
-
-
-            <GForm :config="frm.config" :values="frm.config.values" ref="mainform"/>
-            <!-- <div style="font-size: 10px">{{ frm.config.values }}</div> -->
-
+            <GForm :config="frm.config" :values="frm.config.values" ref="mainform" @change="onFormChange"/>
             <textarea v-if='false' rows="50" v-model="txt" style="width: 100%"></textarea>
         </div>
-        <!-- <div class="editactionbar">action bar</div> -->
     </div>
-    <div class="data-toolbar">
+    <div class="data-toolbar" v-if="obj">
         <div class="info">
-            <span>{{ describeMode }} <strong>{{ curMType }}</strong></span>
+            <span>{{ describeMode }}</span>
+            <span class="separator"></span>
+            <strong>{{ curMType }}</strong>
+            <span class="separator"></span>
+            <span>{{ obj.name }}</span>
         </div>
         <div class="actions">
+            <span v-if="altered">altered</span>
             <GButton class="" action="save" @click.stop="btnClick">Save</GButton>
         </div>
     </div>
@@ -77,10 +74,14 @@ export default {
             txt: '',
             frm: {
                 config: {},
-            }
+            },
+            altered: false
         }
     },
     methods: {
+        onFormChange(obj) {
+            this.altered = true;
+        },
         initForm() {
             var mt = mtypes.get(this.obj.mtype)
             this.title = mt.description;
@@ -110,6 +111,7 @@ export default {
                     });
                     this.curSlug = res.data.data.guid;
                     this.curMode = "edit";
+                    this.altered = false;
                 });
             }
             else {
@@ -122,6 +124,7 @@ export default {
                         title: "Saving " + this.curMType,
                         text: "Save successful"
                     });
+                    this.altered = false;
                 });
             }
         },
@@ -174,6 +177,11 @@ export default {
             }
             return res;
         }
+    },
+    beforeRouteLeave (to, from , next) {
+        //const answer = window.confirm('Do you really want to leave? you have unsaved changes!')
+        //if (answer) { next() } else { next(false) }
+        next();
     }
 }
 </script>

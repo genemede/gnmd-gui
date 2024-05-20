@@ -12,7 +12,7 @@ export default {
         },
     },
     mounted() {
-        debug_log('DIALOG MOUNTED', this.dlgdata, this.dlgoptions);
+        //debug_log('DIALOG MOUNTED', this.dlgdata, this.dlgoptions);
     },
     computed: {
         getBtnClasses() {

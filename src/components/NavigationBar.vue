@@ -15,9 +15,12 @@
                 <RouterLink class="navlink" :to="{name: 'dataroot'}">Data</RouterLink>
                 <!-- <RouterLink class="navlink" :to="{ name: 'mtypes' }">MTypes</RouterLink> -->
                 <RouterLink class="navlink" :to="{name: 'search'}">Search</RouterLink>
-                <!-- <RouterLink class="navlink" :to="{name: 'explore'}">Explore</RouterLink> -->
+                <RouterLink class="navlink" :to="{name: 'explore'}">Explore</RouterLink>
                 <RouterLink v-if="this.$store.devMode" class="navlink devlink" :to="{name: 'devpage'}">Dev</RouterLink>
-                <span>{{ this.$router.currentRoute.value.name }}</span>
+                <template v-if="this.$store.devInfo">
+                    <span>{{ this.$store.server.status }} | </span>
+                    <span>{{ this.$router.currentRoute.value.name }}</span>
+                </template>
             </div>
 
             <div class="user">
@@ -31,10 +34,10 @@
                             <img class="avatar-img" :src="this.$store.user.avatarURL">
                         </div>
                         <span class="admin-logo" v-if="this.$store.user.isAdmin"><i class="fas fa-crown"></i></span>
-                        <span class="server-icon online" v-if='this.$store.server.status === 2'>
+                        <span class="server-icon online" v-if='this.$store.server.status === 3'>
                             <i class="fas fa-check"></i>
                         </span>
-                        <span class="server-icon" v-if='this.$store.server.status === 1'>
+                        <span class="server-icon" v-if='this.$store.server.status === 2'>
                             <i class="fas fa-ban"></i>
                         </span>
                         <span class="notifications" :class="{visible: dbgNot}">3</span>

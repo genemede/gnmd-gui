@@ -7,7 +7,8 @@ defineEmits(['update:modelValue', 'blur', 'click', 'input'])
         <span>x - {{ modelValue }} - x - {{ isToggled }}</span>
         <input type="checkbox" class="sw-cb" :name="name" v-model="xtog" :disabled="disabled" @change.stop="toggle" @input="updateInput">
         <div class="swtch-cntr" ref="swtchcntr" :style="swtchStyle">
-            <img draggable="false" src="/img/switch-btn.png" :style="btnStyle" ref="trackBtn">
+            <!-- <img draggable="false" src="/img/switch-btn.png" :style="btnStyle" ref="trackBtn"> -->
+            <span class="stracker" :style="btnStyle" ref="trackBtn"></span>
         </div>
     </label>
 </template>

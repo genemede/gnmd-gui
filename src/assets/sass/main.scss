@@ -49,6 +49,15 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
+h1 {
+    background-color: var(--sidebar-background-color);
+    //color: white;//var(--sidebar-text-color);
+    //background-color: var(--toolbar-background-color);
+    color: var(--toolbar-text-color);
+    padding-left: 1rem;
+    font-size: 1.5rem;
+}
+
 .small {
     font-size: 12px;
 }
@@ -69,17 +78,22 @@ body {
     color: var(--text-color-danger);
 }
 
+.spacer-left { margin-left: 8px !important;}
+.spacer-right { margin-right: 8px !important; }
+.spacer-top { margin-top: 16px !important; }
+.spacer-top-half { margin-top: 8px !important; }
+.spacer-bottom { margin-bottom: 16px !important; }
+.spacer-bottom-half { margin-bottom: 8px !important; }
+
 #app {
     font-weight: normal;
-    .appbg {
-
-    }
+    //.appbg {}
     &.showfocus {
-      .button:focus {
-        outline-style: auto;
-        //border: 2px solid red !important;
-        //outline: 1px;
-      }
+        .button:focus {
+            outline-style: auto;
+            //border: 2px solid red !important;
+            //outline: 1px;
+          }
     }
 }
 
@@ -100,8 +114,9 @@ span {
 
 .wrapper {
     //border: 1px dotted gray;
+    margin-top: 1rem;
     text-align: left;
-    padding: 1rem;
+    padding: 0 1rem;
     &.sa {
         margin-bottom: 1rem;
     }
