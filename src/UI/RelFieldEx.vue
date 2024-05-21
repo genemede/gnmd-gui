@@ -9,6 +9,7 @@
                     <GButton class="small" action="add" @click.stop="btnClick">add</GButton>
                 </span>
             </div>
+            <div class="small" v-if="this.$store.devInfo">Altered: <strong>{{ altered }}</strong></div>
             <div class="data-container" ref="dc">
                 <template v-for="(itm, idx) in modelValue" v-if="ready">
                     <div class="header sub linkfield" ref="headers">

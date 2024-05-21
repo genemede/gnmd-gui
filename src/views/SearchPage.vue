@@ -25,7 +25,7 @@ import SearchResultItem from '@/components/SearchResultItem.vue'
         </div>
 
         <div class="wrapper">
-            <DataTable :columns="columns" :options="options" :data="data" class="display nowrap" width="100%" @click='clickDataTable'>
+            <DataTable :columns="columns" :options="options" :data="data" class="display nowrap" width="100%" @click='clickDataTable' ref="dt">
                 <thead>
                     <tr>
                         <th>MType</th>
@@ -63,10 +63,10 @@ export default {
                 {
                     render: (data, type, row) => {
                         var icon = this.$mtypes.getIcon(row.mtype, "fa-sm");
-                        var html = `<i class="${icon}"></i> ` + row.mtype;
+                        var html = `<span class="cls-mt-${row.mtype}"><i class="${icon}"></i></span> ` + row.mtype;
                         return html;
                     },
-                    className: "mt-icon",
+                    className: "mt-icon cls-mt-",
                     //data: 'mtype',
                     width: "150px"
                 },
@@ -85,41 +85,20 @@ export default {
                 searching: false,
                 select: true,
                 paging: true,
-                pageLength: 25
+                pageLength: 25,
+                /*
+                rowCallback: (row, data) => {
+                    row.childNodes[0].classList.toggle('cls-mt-' + data.mtype, true);
+                }
+                */
             },
             data: []
         }
     },
     mounted() {
-        console.log('mounted')
         this.execSearch();
-        // some fake data
-        //this.randomData();
     },
     methods: {
-        randomData() {
-            console.log('Randomizing');
-            var tmp = []
-            var g;
-            const mtypes = ['lab', 'project', 'researcher', 'subject'];
-            var r;
-            const max = 1000
-
-            for (var i = 0; i < max; i++) {
-                g = URL.createObjectURL(new Blob([])).slice(-36);
-                r = mtypes[Math.floor(Math.random() * mtypes.length)];
-
-                tmp.push({
-                    mtype: r,
-                    guid: g,
-                    name: g,
-                    description: g
-                })
-
-                //tmp.push(URL.createObjectURL(new Blob([])).slice(-36));
-            }
-            this.data = tmp;
-        },
         async clickDataTable(event, info) {
             var btn = event.target;
             if (btn.tagName == 'BUTTON') {
@@ -130,26 +109,15 @@ export default {
         },
         clickClearFilter() {
             this.filterTmp = ''
-            //
         },
         async execSearch() {
             genemedeAPI.apiGet("search?q=" + this.filterTmp).then((res) => {
                 this.data = res.data.data
             });
-
         },
         btnClick(evt, btn) {
             if (btn) {
                 this.execSearch()
-                /*
-                console.log('src btn', evt, btn.action);
-                this.randomData();
-                btn.isWaiting = true;
-                setTimeout(() => {
-                    btn.isWaiting = false;
-                }, 500);
-                */
-
             }
         }
     }

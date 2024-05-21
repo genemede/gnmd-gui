@@ -120,10 +120,12 @@ span {
     &.sa {
         margin-bottom: 1rem;
     }
-    &.wireframe {
-        border: 1px dashed gray;
-        text-align: center;
-    }
+}
+
+.wireframe {
+    padding: 1rem;
+    border: 1px dashed gray;
+    text-align: center;
 }
 
 .mtdemo {

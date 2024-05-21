@@ -10,7 +10,7 @@
 
             <!-- <h3>slug: {{ curSlug }}</h3> -->
             <template v-if="obj">
-                <InputField v-model="obj.name" title="Name" type="text" name="name" @change="onFormChange"/>
+                <InputField v-model="obj.name" title="Name" type="text" name="name" @change="onFormChange" ref="mtnamefield"/>
                 <InputField v-model="obj.description" title="Description" type="text" name="description" @change="onFormChange"/>
             </template>
         </div>
@@ -85,8 +85,8 @@ export default {
         initForm() {
             var mt = mtypes.get(this.obj.mtype)
             this.title = mt.description;
-            this.frm = mtypes.buildFormEx(mt.mtype, this.obj);
-            //debug_log("NEWFORM", this.frm.config)
+            this.frm = this.$store.buildFormEx(mt.mtype, this.obj);
+            console.log("FORM", this.frm)
         },
         onTagifyInput(evt) {
         },
@@ -128,9 +128,6 @@ export default {
                 });
             }
         },
-        switchToEdit() {
-
-        },
         async btnClick(evt, btn) {
             switch (btn.action) {
                 case 'save':
@@ -147,7 +144,10 @@ export default {
             genemedeAPI.apiGet("guid/" + slug).then((res) => {
                 this.obj = res.data.data
                 this.curMType = this.obj.mtype;
-                this.initForm()
+                this.initForm();
+                this.$nextTick(() => {
+                    this.$refs.mtnamefield.focus();
+                })
             });
             break;
         case 'create':

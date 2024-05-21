@@ -4,8 +4,9 @@
             <h2>Types</h2>
             <div class="wrapper">
                 <!-- <RouterLink class="navlink" to="/data/manage">Data</RouterLink> -->
-                <template v-for="mt in $store.mtypes">
+                <template v-for="mt in $store.mtypesEx">
                     <!-- <div class="sbitem" :action="mt.mtype" @click.stop="btnClick">{{ mt.mtype }}</div> -->
+                    <!-- <RouterLink class="sblink" :to="'/data/manage/' + mt.mtype">{{ mt.mtype }}</RouterLink> -->
                     <RouterLink class="sblink" :to="'/data/manage/' + mt.mtype">{{ mt.mtype }}</RouterLink>
 
                 </template>
@@ -55,20 +56,6 @@ export default {
             if (r) {
                 if (r.startsWith('/data')) { res = 'data'}
             }
-            return res;
-        },
-        getMTList() {
-            //debug_log('route', this.$route.path)
-            var res = []
-
-            if (this.$mtypes.data != null) {
-                for (var i in this.$mtypes.data) {
-                    //console.log('---', this.$mtypes.data[i])
-                    res.push(this.$mtypes.data[i].mtype)
-                }
-                //res.push(this.$mtypes.data[i].mtype)
-            }
-
             return res;
         },
     }

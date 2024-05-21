@@ -1,7 +1,9 @@
 <template>
     <div class="middle">
-        <div class="wrapper wireframe">
-            <p>MType specific stats and information</p>
+        <div class="wrapper">
+            <div class="wireframe">
+                <p>MType specific stats and information</p>
+            </div>
         </div>
         <div class="wrapper">
             <template v-if="mtype">

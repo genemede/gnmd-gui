@@ -15,7 +15,7 @@
                 <RouterLink class="navlink" :to="{name: 'dataroot'}">Data</RouterLink>
                 <!-- <RouterLink class="navlink" :to="{ name: 'mtypes' }">MTypes</RouterLink> -->
                 <RouterLink class="navlink" :to="{name: 'search'}">Search</RouterLink>
-                <RouterLink class="navlink" :to="{name: 'explore'}">Explore</RouterLink>
+                <!-- <RouterLink class="navlink" :to="{name: 'explore'}">Explore</RouterLink> -->
                 <RouterLink v-if="this.$store.devMode" class="navlink devlink" :to="{name: 'devpage'}">Dev</RouterLink>
                 <template v-if="this.$store.devInfo">
                     <span>{{ this.$store.server.status }} | </span>

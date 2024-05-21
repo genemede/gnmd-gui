@@ -12,8 +12,6 @@ window.debug_group_end = function(name) {
     if (import.meta.env.VITE_APP_ENV != 'production') console.groupEnd();
 };
 
-//import('@src/w3color.js').then(mod => {})
-
 const GlobalHelpers = {
     html_button(action, text, btnclass = '') {
         return `<button action="${action}" data-action="${action}" type="button" class="button ${btnclass}"><span class="btn-text">${text}</span></button>`;

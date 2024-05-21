@@ -266,6 +266,10 @@
         height: 8px;
     }
     */
+    &.alt {
+        border: 1px dotted var(--helpbox-border-alt);
+        background-color: var(--helpbox-background-alt);
+    }
     .hb-icon {
         padding-left: 1px;
         padding-top: 2px;

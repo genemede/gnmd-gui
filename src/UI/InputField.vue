@@ -94,7 +94,7 @@ export default {
             altered: false
         }
     },
-    expose: ["isAltered"],
+    expose: ["isAltered", "focus"],
     name: 'InputField',
     mounted() {
         if (this.type === 'password') {

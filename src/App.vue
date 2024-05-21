@@ -169,7 +169,7 @@ export default {
             var hue = 80;
             var h = '';
             var style = document.createElement('style');
-            this.$store.mtypes.forEach(m => {
+            for (var m in this.$store.mtypesEx) {
                 s = `hsl(${hue},${0.78},${0.85})`;
                 c = w3color(s);
                 hue += 40;
@@ -178,13 +178,17 @@ export default {
                 var c1 = c.toHexString();
                 var c2 = this.$helpers.shadeColor(c1, -10);
                 var c3 = this.$helpers.shadeColor(c1, -15);
+                var cdark = this.$helpers.shadeColor(c1, -55);
 
-                h = h + `.cls-mt-${m.mtype} { background-color: ${c1}; border: 1px solid ${c2}; }
-            .module.cls-mt-${m.mtype} .header {
+                h = h +
+
+                `.cls-mt-${m} { background-color: ${c1}; border: 1px solid ${c2}; }
+                .cls-color-mt-${m} { color: ${cdark}}
+                .module.cls-mt-${m} .header {
                     background-color: ${c2};
                     border-bottom: 1px solid ${c3};
                 }`
-            });
+            }
             style.innerHTML = h;
             document.head.appendChild(style);
         }

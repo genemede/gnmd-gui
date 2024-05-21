@@ -4,9 +4,6 @@
             <!-- <div>{{ item }}</div> -->
             <div class="header spacer-bottom">
                 <span class="title">Module: {{ item.name }}</span>
-
-                <span>alt: {{ altered }}</span>
-
                 <span class="actions">
                     <span>{{ describeGroupCount }}</span>
                     <GButton class="small" action="add" @click.stop="btnClick" v-if="item.repeatable" >add</GButton>
@@ -16,6 +13,7 @@
                     </span>
                 </span>
             </div>
+            <div class="small" v-if="this.$store.devInfo">Altered: <strong>{{ altered }}</strong></div>
             <div class="data-container" :class="{ 'hidden': hidden }">
 
                 <template v-for="(itm, idx) in values">

@@ -1,7 +1,7 @@
 <template>
     <template v-if="config">
         <!-- <h5>================ {{ values }}</h5> -->
-        <h5>alt: {{ altered }}</h5>
+        <div class="small" v-if="this.$store.devInfo">Altered: <strong>{{ altered }}</strong></div>
         <template v-for="(itm, idx) in config.fields">
             <template v-if="itm.datatype == 'text'">
                 <InputField v-model="values[itm.name]" :title="itm.label" type="text" :help="itm.help" name="itm.name" @change="onChange"/>
@@ -23,6 +23,7 @@
             </template>
 
             <template v-else-if="itm.datatype == 'module'">
+
                 <!-- <h4>{{ itm }}</h4> -->
                 <GModule :item="itm" :values="values[itm.valuekey]" @change="onChange"/>
                 <!-- <div>{{ itm.config }}</div> -->

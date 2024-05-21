@@ -93,6 +93,9 @@ $color-cogitate-red: #DD0F5A;
     --helpbox-background: #{rgba(#d0f3d8, 0.7)};
     --helpbox-border: color-mix(in srgb, var(--helpbox-background), #000 15%);
 
+    --helpbox-background-alt: #{rgba(#d0e9f3, 0.7)};
+    --helpbox-border-alt: color-mix(in srgb, var(--helpbox-background-alt), #000 15%);
+
     --sidebar-background-color: var(--nav-link-active-background-color);
     --sidebar-text-color: var(--text-color);
     //--sidebar-background-color: #1279a5;

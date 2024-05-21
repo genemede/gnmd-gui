@@ -26,12 +26,11 @@
                 </template>
             </div>
             <template v-if="this.$store.server.status === 3">
-                <p>Try creating an instance of one of these metadata descriptors:<br><br>
-
-                <template v-for="mt in $store.mtypes">
+                <p class="spacer-bottom-half">Try creating an instance of one of these metadata descriptors:</p>
+                <template v-for="mt in $store.mtypesEx">
                     <GButton :class="{ 'alternate': mt.namespace != ''}" :action="'add:' + mt.mtype" @click.stop="btnClick">Add {{ mt.description }}</GButton>
                 </template>
-            </p>
+
             </template>
             <template v-else>
                 <p>
@@ -48,11 +47,14 @@
         </div>
         <div class="wrapper">
             <HelpBox class='spacer-top' icon>
-                <template v-slot:title>No data is stored here</template>
+                <template v-slot:title>This is a web frontend for the GAT Server</template>
                 <p>
-                    This web application is only a frontend for the GAT api. All data is stored on your local GAT instance.
+                    This web application uses the Genemede apis to interact with data, and stores no data itself. All data is stored on your local GAT instance.
                     <br>
                     <a href="https://genemede.github.io/about/" target="_blank">Read more here</a>
+                </p>
+                <p v-if="this.$store.feedbackForm">You can use this form to leave us your feedback:
+                    <a :href="this.$store.feedbackForm" target="_blank">Feedback</a>
                 </p>
             </HelpBox>
         </div>
@@ -130,7 +132,6 @@ export default {
         btnClick(evt, btn) {
             var act = btn.action.split(':')
             if (btn) {
-                console.log('act', act, act[0])
                 switch (act[0]) {
                 case 'retrygat':
                     btn.isWaiting = true;

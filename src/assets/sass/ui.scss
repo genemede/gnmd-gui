@@ -97,7 +97,8 @@ $overlap-nav-bar: false;
         min-height: calc(100vh - var(--nav-height-desktop) - var(--edit-toolbar-height-desktop));
 
         //padding: 16px 16px 48px;
-        padding-top: 8px 0 48px;
+        //padding-top: 8px 0 48px;
+        padding-bottom: 4rem;
         text-align: left;
         //background-color: rgba(0,0,0, 0.45);
         //!!
