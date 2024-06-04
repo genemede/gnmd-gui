@@ -1,0 +1,54 @@
+#appcontainer {
+    &.theme-gnmd {
+        //--font-primary: "Arial", sans-serif;
+        //--font-headings: "Arial", sans-serif;
+        //--font-branding: "Josefin Sans", sans-serif;
+
+        --color-white: #ebeef6;
+        --color-primary: #194774;
+        --color-x: #8c9896;
+
+        --color-x: #ebeef6;
+
+        --color-tertiary: #e68947;
+        --color-x3: #c95d1a;
+        --color-secondary: #a85b32;
+
+        --color-success: #a8bba1;
+        --color-success: rgb(32, 168, 32);
+        //--color-warning: #f5eadc;
+        --color-warning: #F5E9DB;
+        --color-danger: #a85b32;
+        --color-info: #F1F4FF;
+
+        --nav-bar-background-color: var(--background-color);
+        --nav-link-background-color: var(--color-warning);
+        --nav-link-color: var(--color-black);
+        --nav-link-active-background-color: var(--color-x3);
+        //--nav-border-color: #add9ec; // #9e9fb9;
+        --nav-bar-border-color: color-mix(in srgb, var(--nav-bar-background-color), #000 15%);
+        --nav-link-background-color-hover: darken(#add9ec, 10%);
+
+
+        --background-color: var(--color-white);
+        //--background-color-accent: color-mix(in srgb, var(--background-color), #000 5%);
+
+        --button-border-radius: 5px;
+        --button-background-color: var(--color-primary);
+        --button-text-color: var(--color-white);
+        --button-text-color-hot: yellow;
+
+        --button-background-color-secondary: var(--color-secondary);
+        --button-background-color-tertiary: var(--color-tertiary);
+        --button-background-color-success: var(--color-success);
+        --button-background-color-danger: var(--color-danger);
+        --button-background-color-warning: var(--color-warning);
+        --button-background-color-info: var(--color-info);
+
+        --sidebar-background-color: var(--color-primary);
+        --sidebar-text-color: var(--color-white);
+        .button {
+            border-bottom: 2px solid color-mix(in srgb, var(--button-background-color), #000 15%);
+        }
+    }
+}

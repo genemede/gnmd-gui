@@ -38,7 +38,7 @@
                             </div>
                             <div class="footer">
                                 <GButton class="small" :action="`select:${itm.mtype}`" @click.prevent="btnClick">Select</GButton>
-                                <GButton class="small" :action="`create:${itm.mtype}`" @click.prevent="btnClick">Create</GButton>
+                                <GButton class="small secondary" :action="`create:${itm.mtype}`" @click.prevent="btnClick">Create</GButton>
                             </div>
                         </div>
                     </template>

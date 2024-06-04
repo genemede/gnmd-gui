@@ -89,7 +89,7 @@ $menu-width-mobile: 280px;
             }
             @media (max-width: 767px) {
                 .navlink {
-                    &.secondary {
+                    &.tertiary {
                         display: none;
                     }
                 }
@@ -164,13 +164,12 @@ $menu-width-mobile: 280px;
         }
 
         .system {
-            //padding: 4px;
+            margin-left: 1rem;
             min-width: 50px;
             cursor: pointer;
             @include debug-borders(red, 1);
             font-size: 30px;
         }
-
     }
 }
 
@@ -188,6 +187,7 @@ $menu-width-mobile: 280px;
     transition: opacity 0.25s, background-color 0.5s;
     background-color: rgba(0, 0, 0, 0.5);
     .menu {
+        text-align: center;
         font-size: 18px;
         color: var(--menu-text-color);
         box-shadow: 5px 5px 12px 6px rgba(0, 0, 0, 0.75);
@@ -252,7 +252,7 @@ $menu-width-mobile: 280px;
                         font-size: 14px;
                         font-weight: 400;
                         //color: var(--menu-select-color);
-                        color: var(--menu-text-secondary-color);
+                        color: var(--menu-text-tertiary-color);
                     }
                 }
             }

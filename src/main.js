@@ -16,6 +16,7 @@ import InputField from './UI/InputField.vue'
 import TextField from './UI/TextField.vue'
 import SelectField from './UI/SelectField.vue'
 import DateField from './UI/DateField.vue'
+import DateFieldEx from './UI/DateFieldEx.vue'
 
 import GToggle from './UI/GToggle.vue'
 import GSwitch from './UI/GSwitch.vue'
@@ -43,6 +44,7 @@ app.component('RelFieldEx', RelFieldEx);
 app.component('TextField', TextField);
 app.component('SelectField', SelectField);
 app.component('DateField', DateField);
+app.component('DateFieldEx', DateFieldEx);
 app.component('GToggle', GToggle);
 app.component('GSwitch', GSwitch);
 app.component('HelpBox', HelpBox);

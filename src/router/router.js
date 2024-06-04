@@ -118,7 +118,7 @@ router.beforeEach(async (to, from) => {
     // thus allowing page reloads while editing data
     const s = useGlobalStore();
     if (s.server.status == 1) {
-        await new Promise(r => setTimeout(r, 200));
+        await new Promise(r => setTimeout(r, 300));
     }
 })
 

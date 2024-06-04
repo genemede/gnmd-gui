@@ -102,7 +102,7 @@ export default {
                 {
                     title: '', data: null, orderable: false, searchable: false, className: "dt-right",
                     render: (data, type, row) => {
-                        var html = this.$helpers.html_button(row.guid, 'details', 'small alternate')
+                        var html = this.$helpers.html_button(row.guid, 'details', 'small secondary')
                         return html;
                     }
                 }

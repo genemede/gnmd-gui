@@ -68,7 +68,7 @@
         position: relative;
         padding: 4px 12px;
         text-align: left;
-        @include font-titles(20px);
+        @include font-headings(20px);
         color: var(--dialog-title-color);
         font-weight: normal;
         background-color: var(--dialog-title-background-color);

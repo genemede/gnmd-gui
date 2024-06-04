@@ -1,55 +1,57 @@
 <template>
-    <NavigationBar v-if="true"></NavigationBar>
-    <transition name="dlg-zoom" mode="in-out">
-        <div
-            class="global-dialog-container visible"
-            @click.stop="intClickDlgContainer"
-            :class="getDialogContainerClasses"
-            v-if='dlgName != null'
-            id="globdlgcontainer"
-            role="dialog"
-            ref="globdlgcontainer"
-            aria-modal="true"
-        >
-            <!-- standard dialogs -->
-            <div v-if="!getIsSimpleDialog"
-                class="dlg-window bg-2"
-                :class="[{ working: $store.ui.isDlgWorking }]"
-                ref="dlgwindow"
+    <div id="appcontainer" :class="getAppTheme">
+        <NavigationBar v-if="true"></NavigationBar>
+        <transition name="dlg-zoom" mode="in-out">
+            <div
+                class="global-dialog-container visible"
+                @click.stop="intClickDlgContainer"
+                :class="getDialogContainerClasses"
+                v-if='dlgName != null'
+                id="globdlgcontainer"
+                role="dialog"
+                ref="globdlgcontainer"
+                aria-modal="true"
             >
-                <div class="dlg-bg" />
-                <div class="dlg-inner">
-                    <div class="dlg-title">
-                        <span class="text">{{ getDialogTitle }}</span>
-                        <span class="close" @click="intCancelDlg(false)">
-                            <i class="fas fa-times"></i>
-                        </span>
+                <!-- standard dialogs -->
+                <div v-if="!getIsSimpleDialog"
+                    class="dlg-window bg-2"
+                    :class="[{ working: $store.ui.isDlgWorking }]"
+                    ref="dlgwindow"
+                >
+                    <div class="dlg-bg" />
+                    <div class="dlg-inner">
+                        <div class="dlg-title">
+                            <span class="text">{{ getDialogTitle }}</span>
+                            <span class="close" @click="intCancelDlg(false)">
+                                <i class="fas fa-times"></i>
+                            </span>
+                        </div>
+                        <component :is='dlgName' :dlgdata='dlgData' :dlgoptions='dlgOptions' />
                     </div>
+                </div>
+                <div v-else>
                     <component :is='dlgName' :dlgdata='dlgData' :dlgoptions='dlgOptions' />
                 </div>
             </div>
-            <div v-else>
-                <component :is='dlgName' :dlgdata='dlgData' :dlgoptions='dlgOptions' />
+        </transition>
+
+        <div class="top-container">
+            <div class="sidebar-container">
+                <AppSidebar />
             </div>
-        </div>
-    </transition>
+            <div class="main-container" ref="maincontainer" id="mc">
+                <div class="corner"><div></div></div>
+                <RouterView v-slot="{ Component }">
+                    <keep-alive include="ManageMTypes,SearchPage,ExplorePage,HomeView">
+                        <component :is="Component" :key="$route.path"/>
+                    </keep-alive>
+                </RouterView>
+            </div>
 
-    <div class="top-container">
-        <div class="sidebar-container">
-            <AppSidebar />
         </div>
-        <div class="main-container" ref="maincontainer" id="mc">
-            <div class="corner"><div></div></div>
-            <RouterView v-slot="{ Component }">
-                <keep-alive include="ManageMTypes,SearchPage,ExplorePage,HomeView">
-                    <component :is="Component" :key="$route.path"/>
-                </keep-alive>
-            </RouterView>
-        </div>
-
+        <notifications classes="stdnotifications" group="std" />
+        <AppMenu />
     </div>
-    <notifications classes="stdnotifications" group="std" />
-    <AppMenu />
 </template>
 
 <style lang="scss"> // the main file that imports everything related with styles
@@ -98,8 +100,13 @@ export default {
                 if (this.$store.ui.dialogShowing) {
                     this.intCancelDlg()
                 }
-                if (this.$store.ui.menuOpen) {
-                    this.$store.ui.menuOpen = false
+                else {
+                    if (this.$store.ui.menuOpen) {
+                        this.$store.ui.menuOpen = false
+                    }
+                    else {
+                        this.$store.ui.menuOpen = true
+                    }
                 }
             }
         },
@@ -194,6 +201,10 @@ export default {
         }
     },
     computed: {
+        getAppTheme() {
+            var res = this.$store.ui.theme.name;
+            return res;
+        },
         getDialogTitle() {
             if (this.dlgOptions != null) return this.dlgOptions.title;
             return '';

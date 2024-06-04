@@ -67,8 +67,8 @@ export default {
                         var url = "/mtypes/lab"
                         //html = `<span href='${url}' data-clickable>open</span>`;
                         html = `<span test='${url}' data-clickable>open</span>`;
-                        //html = html_button('aa', 'bb', 'open', 'small alternate')
-                        html = this.$helpers.html_button('mtype-detail', 'details', 'small alternate disabled')
+                        //html = html_button('aa', 'bb', 'open', 'small secondary')
+                        html = this.$helpers.html_button('mtype-detail', 'details', 'small secondary disabled')
 
                         return html;
                         //return '<span>qweqwe</span>';

@@ -3,11 +3,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400;700&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Asap:400,500,700');
 
+
+//
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Montserrat:wght@100;400;700&display=swap');
+
 :root {
      //--font-primary: 'Nanum Gothic', 'sans-serif';
     //--font-primary: 'Montserrat', 'sans-serif';
     //--font-primary: 'Open Sans', 'sans-serif';
-    --font-primary: 'Asap', 'sans-serif';
+    --font-primary: "Asap", sans-serif;
+    //--font-primary: "Arial", sans-serif;
+    --font-headings: "Arial", sans-serif;
+    --font-branding: "Josefin Sans", sans-serif;
 }
 
 $fontawesome: "Font Awesome 5 Free";
@@ -18,8 +25,8 @@ $fontawesome: "Font Awesome 5 Free";
     @if ($weight != 0) { font-weight: $weight; }
 }
 
-@mixin font-titles($size: 0, $weight: 0) {
-    font-family: var(--font-titles);
+@mixin font-headings($size: 0, $weight: 0) {
+    font-family: var(--font-headings);
     @if ($size != 0) { font-size: $size; }
     @if ($weight != 0) { font-weight: $weight; }
 }

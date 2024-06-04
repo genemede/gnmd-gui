@@ -38,31 +38,35 @@ $color-cogitate-red: #DD0F5A;
     --edit-toolbar-height-desktop: 42px;
     --dlg-title-height: 48px;
 
+    --color-black: #2f2d2d;
+    --color-white: #e7f5f9;
+
     --color-success: #4d9f2a;
     --color-danger: #dd160f;
     --color-warning: #ed9e2e;
     --color-info: #4a9af7;
 
 
-    --text-color: #{$color-black};
+    --text-color: var(--color-black);
     --text-color-soft: color-mix(in srgb, var(--text-color), #fff 35%);
 
     --text-color-warning: color-mix(in srgb, var(--color-warning) 50%, var(--text-color));
     --text-color-danger: color-mix(in srgb, var(--color-danger) 50%, var(--text-color));
 
-    --background-color: #{$color-white};
+    --background-color: var(--color-white);
     --background-color-accent: color-mix(in srgb, var(--background-color), #000 5%);
 
+    --button-border-radius: 0;
     --button-background-color: #{$color-cogitate-blue};
-    --button-text-color: white;
+    --button-text-color: var(--color-white);
     --button-text-color-hot: yellow;
 
-    --button-background-color-alternate: #{$color-cogitate-red};
-    --button-background-color-secondary: #f15890;
-    --button-background-color-success: #4d9f2a;
-    --button-background-color-danger: #dd160f;
-    --button-background-color-warning: #ed9e2e;
-    --button-background-color-info: #4a9af7;
+    --button-background-color-secondary: #{$color-cogitate-red};
+    --button-background-color-tertiary: #f15890;
+    --button-background-color-success: var(--color-success);
+    --button-background-color-danger: var(--color-danger);
+    --button-background-color-warning: var(--color-warning);
+    --button-background-color-info: var(--color-info);
 
     // navigation
     --nav-bar-background-color: #add9ec;
@@ -74,7 +78,7 @@ $color-cogitate-red: #DD0F5A;
     --nav-link-background-color-hover: darken(#add9ec, 10%);
 
 
-    --menu-background-color: white;
+    --menu-background-color: var(--color-white);
     //--menu-border-color: hsl(from var(--menu-background-color) h s calc(l - 15%));
     --menu-border-color: color-mix(in srgb, var(--menu-background-color), #000 15%);
     --menu-text-color: $color-black;

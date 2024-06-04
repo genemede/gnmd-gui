@@ -109,9 +109,8 @@ export default {
                         title: "Saving " + this.curMType,
                         text: "Save successful"
                     });
-                    this.curSlug = res.data.data.guid;
-                    this.curMode = "edit";
                     this.altered = false;
+                    router.push('/data/edit/' + res.data.data.guid)
                 });
             }
             else {
@@ -161,6 +160,9 @@ export default {
                 custom: {}
             }
             this.initForm()
+            this.$nextTick(() => {
+                this.$refs.mtnamefield.focus();
+            })
             break;
         }
     },

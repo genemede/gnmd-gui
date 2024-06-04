@@ -6,6 +6,8 @@
             <hr>
         </div>
         <div class="wrapper">
+            <div><input name="tst1" type="date"></div>
+            <div><input name="tst2" type="time"></div>
             <GSwitch v-model="switchvalue"></GSwitch>
             <span>Switch: {{ switchvalue }}</span>
             <hr>
@@ -19,7 +21,7 @@
         </div>
 
         <div class="wrapper">
-            <DateField v-model="datepickvalue" />
+            <DateFieldEx v-model="datepickvalue" title="Datetime"/>
             <div>this value: {{ datepickvalue }}</div>
             <hr>
             <InputField v-model="txtfield" title="test field" type="text" ref="inputfield"/>
@@ -40,9 +42,9 @@
         </div>
         <div v-if="true">
             <div class="wrapper">
-                <GButton class="" action="def" @click.stop="btnClick" ref="btn1">Button</GButton>
-                <GButton class="alternate" @click.prevent="btnClick">Alternate</GButton>
+                <GButton class="" action="def" @click.stop="btnClick" ref="btn1">Primary</GButton>
                 <GButton class="secondary" @click.prevent="btnClick">Secondary</GButton>
+                <GButton class="tertiary" @click.prevent="btnClick">Tertiary</GButton>
                 <span>|</span>
                 <GButton class="success" action="notifysuccess" @click.prevent="btnClick">Success</GButton>
                 <GButton class="danger" action="notifyerror" @click.prevent="btnClick">Error</GButton>
@@ -51,9 +53,9 @@
             </div>
 
             <div class="wrapper">
-                <GButton class="disabled" @click.prevent="btnClick">Button</GButton>
-                <GButton class="alternate disabled" @click.prevent="btnClick">Alternate</GButton>
+                <GButton class="disabled" @click.prevent="btnClick">Primary</GButton>
                 <GButton class="secondary disabled" @click.prevent="btnClick">Secondary</GButton>
+                <GButton class="tertiary disabled" @click.prevent="btnClick">Tertiary</GButton>
                 <GButton class="success disabled" @click.prevent="btnClick">Success</GButton>
                 <GButton class="danger disabled" @click.prevent="btnClick">Error</GButton>
                 <GButton class="warning disabled" @click.prevent="btnClick">Warning</GButton>
@@ -61,9 +63,9 @@
             </div>
 
             <div class="wrapper">
-                <GButton class="small" @click.prevent="btnClick" ref="btn1small">Button</GButton>
-                <GButton class="alternate small" @click.prevent="btnClick">Alternate</GButton>
+                <GButton class="small" @click.prevent="btnClick" ref="btn1small">Primary</GButton>
                 <GButton class="secondary small" @click.prevent="btnClick">Secondary</GButton>
+                <GButton class="tertiary small" @click.prevent="btnClick">Tertiary</GButton>
                 <GButton class="success small" @click.prevent="btnClick">Success</GButton>
                 <GButton class="danger small" @click.prevent="btnClick">Error</GButton>
                 <GButton class="warning small" @click.prevent="btnClick">Warning</GButton>
@@ -71,9 +73,9 @@
             </div>
 
             <div class="wrapper">
-                <GButton class="small disabled" @click.prevent="btnClick">Button</GButton>
-                <GButton class="alternate small disabled" @click.prevent="btnClick">Alternate</GButton>
+                <GButton class="small disabled" @click.prevent="btnClick">Primary</GButton>
                 <GButton class="secondary small disabled" @click.prevent="btnClick">Secondary</GButton>
+                <GButton class="tertiary small disabled" @click.prevent="btnClick">Tertiary</GButton>
                 <GButton class="success small disabled" @click.prevent="btnClick">Success</GButton>
                 <GButton class="danger small disabled" @click.prevent="btnClick">Error</GButton>
                 <GButton class="warning small disabled" @click.prevent="btnClick">Warning</GButton>

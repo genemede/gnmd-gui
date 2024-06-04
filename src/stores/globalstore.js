@@ -24,7 +24,10 @@ export const useGlobalStore = defineStore('globalstore', {
         ui: {
             menuOpen: false,
             dialogShowing: false,
-            isDlgWorking: false
+            isDlgWorking: false,
+            theme: {
+                name: '',
+            },
         },
         // if app is compiled in development
         devMode: import.meta.env.VITE_APP_ENV == "development",
@@ -158,6 +161,9 @@ export const useGlobalStore = defineStore('globalstore', {
         getMtype(mt) {
             if (mt in this.mtypesEx) return this.mtypesEx[mt];
             return null;
+        },
+        setTheme(themeName) {
+            this.ui.theme.name = themeName;
         },
         buildFormEx(mtype, obj) {
 

@@ -5,8 +5,7 @@ defineEmits(['update:modelValue', 'blur', 'click'])
 <template>
     <div class="input-wrapper padded">
         <label class="label" v-html="title" :class="labelClass" @click="onLabelClick"></label>
-        <!-- <div>XXX: {{curValue }}</div> -->
-        <VueDatePicker v-model="curValue" utc :format="format" @change="onChange" model-type="iso" :xtext-input="dptioptions" :editable="false" ref="picker"/>
+        <!-- <VueDatePicker v-model="curValue" utc :format="format" @change="onChange" model-type="iso" :xtext-input="dptioptions" :editable="false" ref="picker"/> -->
         <div class="control" :class="ctrlClass">
             <input ref="dtinput" v-maska data-maska="####-##-## ##:##:##" placeholder="YYYY-MM-DD hh:mm:ss">
         </div>
@@ -49,7 +48,7 @@ export default {
             dptioptions: { format: 'yyyy.mm.dd HH:mm:ss'}
         }
     },
-    name: 'DateField',
+    name: 'DateFieldEx',
     components: {
         VueDatePicker
     },
