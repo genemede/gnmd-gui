@@ -1,5 +1,5 @@
 <template>
-    <div>fieldmap</div>
+    <!-- <div>fieldmap</div> -->
 </template>
 
 <script>

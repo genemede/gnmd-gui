@@ -36,6 +36,7 @@ export const useGlobalStore = defineStore('globalstore', {
         feedbackForm: null,
         mtypes: [],
         mtypesEx: {},
+        version: import.meta.env.VITE_APP_VERSION,
         count: 0
     }),
     getters: {
@@ -213,7 +214,7 @@ export const useGlobalStore = defineStore('globalstore', {
             // treat modules like fields, with datatype = module
             //debug_log("OBJ", obj.properties)
             for (var modkey in mt.modules) {
-                //debug_log("MOD", modkey, mt.modules[modkey])
+                debug_log("MOD", modkey, mt.modules[modkey])
                 var formprop = doProp(modkey, mt.modules[modkey])
                 formprop.valuekey = "module." + modkey
                 fv = obj.properties[formprop.valuekey]
@@ -230,6 +231,7 @@ export const useGlobalStore = defineStore('globalstore', {
                 res.config.values[formprop.valuekey] = fv
                 res.config.fields.push(formprop)
             }
+            //console.log("FORM", res)
 
             return res;
         },

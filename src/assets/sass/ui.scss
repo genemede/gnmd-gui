@@ -46,11 +46,24 @@ $overlap-nav-bar: false;
     margin-top: var(--nav-height-desktop);
     background-color: var(--sidebar-background-color);
     color: var(--sidebar-text-color);
-    float: left;
+    //float: left;
 
     .sidebar {
         padding: 32px 16px;
         text-align: left;
+        height: 100%;
+    }
+    .sidebar-footer {
+        padding: 1rem;
+        position: sticky;
+        bottom: 0;
+        text-align: center;
+        .gnmd {
+            width: 60px;
+            .gl_letters {
+                fill: #E8E3E3;
+            }
+        }
     }
 }
 

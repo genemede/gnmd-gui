@@ -22,6 +22,8 @@ import GToggle from './UI/GToggle.vue'
 import GSwitch from './UI/GSwitch.vue'
 import HelpBox from './UI/HelpBox.vue'
 
+import Gnmdlogo from './UI/Gnmdlogo.vue'
+
 import ConfirmDialog from '@/components/dlg/ConfirmDialog.vue'
 import InformDialog from '@/components/dlg/InformDialog.vue'
 
@@ -48,6 +50,7 @@ app.component('DateFieldEx', DateFieldEx);
 app.component('GToggle', GToggle);
 app.component('GSwitch', GSwitch);
 app.component('HelpBox', HelpBox);
+app.component('Gnmdlogo', Gnmdlogo);
 
 // dialogs
 app.component('ConfirmDialog', ConfirmDialog);

@@ -38,6 +38,15 @@
         <div class="top-container">
             <div class="sidebar-container">
                 <AppSidebar />
+                <div class="sidebar-footer">
+                    <Gnmdlogo />
+                    <div class="small">
+                        <span v-if="$store.version != ''"><strong>V. {{ $store.version }}</strong></span>
+                    </div>
+                    <div class="small">
+                        <span v-if="$store.server.version != ''">GAT <strong>V. {{ $store.server.version }}</strong></span>
+                    </div>
+                </div>
             </div>
             <div class="main-container" ref="maincontainer" id="mc">
                 <div class="corner"><div></div></div>

@@ -1,21 +1,25 @@
 <template>
     <template v-if="item">
         <div class="module spacer-bottom">
-            <!-- <div>{{ item }}</div> -->
+            <DevPanel v-if="this.$store.devInfo">
+                <div style="font-size: 10px">{{ item }}</div>
+                <hr>
+                <h5>altered: {{ altered }}</h5>
+            </DevPanel>
+
             <div class="header spacer-bottom">
                 <span class="title">Module: {{ item.name }}</span>
                 <span class="actions">
                     <span>{{ describeGroupCount }}</span>
                     <GButton class="small" action="add" @click.stop="btnClick" v-if="item.repeatable" >add</GButton>
+                    <!-- <GButton class="small" action="add" @click.stop="btnClick">add</GButton> -->
 
                     <span class="collapser" @click.stop="btnClick" v-if="false">
                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="10" role="presentation" class="vs__open-indicator"><path d="M9.211364 7.59931l4.48338-4.867229c.407008-.441854.407008-1.158247 0-1.60046l-.73712-.80023c-.407008-.441854-1.066904-.441854-1.474243 0L7 5.198617 2.51662.33139c-.407008-.441853-1.066904-.441853-1.474243 0l-.737121.80023c-.407008.441854-.407008 1.158248 0 1.600461l4.48338 4.867228L7 10l2.211364-2.40069z"></path></svg>
                     </span>
                 </span>
             </div>
-            <div class="small" v-if="this.$store.devInfo">Altered: <strong>{{ altered }}</strong></div>
             <div class="data-container" :class="{ 'hidden': hidden }">
-
                 <template v-for="(itm, idx) in values">
                     <div v-if="item.repeatable" class="header sub">
                         <span class="title">{{ (idx + 1) }} / {{ values.length }}</span>
@@ -57,12 +61,8 @@ export default {
                 var idx = evt.target.dataset.item;
                 switch (btn.action) {
                 case "add":
-                    var obj = {}
-                    for (var fld in this.item.config.fields) {
-                        var cur = this.item.config.fields[fld]
-                        obj[cur.name] = ""
-                    }
-                    this.values.push(obj)
+                    this.addValue();
+
                     break;
                 case "delete":
                     var ok = await this.$dlg.confirm('Confirmation','Delete this field group ?', {okText: 'Yes', cancelText: 'No'});
@@ -72,6 +72,14 @@ export default {
                     break
                 }
             }
+        },
+        async addValue() {
+            var obj = {}
+            for (var fld in this.item.config.fields) {
+                var cur = this.item.config.fields[fld]
+                obj[cur.name] = ""
+            }
+            this.values.push(obj)
         },
         onFormChange(obj) {
             this.altered = true;
@@ -93,6 +101,12 @@ export default {
     destroyed() {
     },
     mounted() {
+        // add a group to non-repeatable modules when empty so editors can appear
+        if (!this.item.repeatable) {
+            if (this.values.length == 0) {
+                this.addValue()
+            }
+        }
     },
 }
 </script>
