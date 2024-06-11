@@ -214,7 +214,7 @@ export const useGlobalStore = defineStore('globalstore', {
             // treat modules like fields, with datatype = module
             //debug_log("OBJ", obj.properties)
             for (var modkey in mt.modules) {
-                debug_log("MOD", modkey, mt.modules[modkey])
+                //debug_log("MOD", modkey, mt.modules[modkey])
                 var formprop = doProp(modkey, mt.modules[modkey])
                 formprop.valuekey = "module." + modkey
                 fv = obj.properties[formprop.valuekey]

@@ -86,7 +86,7 @@ export default {
             var mt = mtypes.get(this.obj.mtype)
             this.title = mt.description;
             this.frm = this.$store.buildFormEx(mt.mtype, this.obj);
-            console.log("FORM", this.frm)
+            //console.log("FORM", this.frm)
         },
         onTagifyInput(evt) {
         },
